@@ -288,7 +288,7 @@ namespace GoatJira
             switch (PropertyName)
             {
                 //case "IconID": return System.Reflection.Assembly.GetExecutingAssembly().Location + "#treeview.ico";
-                case "IconID": return @"c:\Slávek\Projects\Jura\Debug\Resources.dll#102";
+                case "IconID": return @"c:\Slávek\Projects\Jura\Debug\Resources.dll#treeview.ico";
                 //case "IconID": return @"e:\Projects\Visual Studio Solutions\Pokusy\Resources\Debug\Resources.dll#101";
                 case "Language": return "";
                 case "HiddenMenus": return EA.MDGMenus.mgBuildProject | EA.MDGMenus.mgMerge | EA.MDGMenus.mgRun;

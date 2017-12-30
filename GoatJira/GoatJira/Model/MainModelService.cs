@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GoatJira.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,13 +8,25 @@ namespace GoatJira.Model
 {
     class MainModelService : IMainModelService
     {
+
+        /// <summary>
+        /// Return full file name with a configuration.
+        /// </summary>
+        /// <param name="IDString">ID which distinguishes repostitory from each other</param>
+        /// <returns></returns>
+        private string GetFullFileName()
+        {
+            return $@"{Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)).FullName}\EAGoatJiraPackages.json";
+        }
+
+
         public void ReadConnectedPackages(ObservableCollection<PackageModel> ConnectedPackages)
         {
             try
             {
                 //ConnectedPackages = JsonConvert.DeserializeObject<ObservableCollection<PackageModel>>(File.ReadAllText(@"C:\TEMP\GGG.JSON"));
                 ConnectedPackages.Clear();
-                JsonConvert.PopulateObject(File.ReadAllText(@"C:\TEMP\GGG.JSON"), ConnectedPackages);
+                JsonConvert.PopulateObject(File.ReadAllText(GetFullFileName()), ConnectedPackages);
             }
             catch (Exception)
             {
@@ -25,7 +38,7 @@ namespace GoatJira.Model
         {
             try
             {
-                File.WriteAllText(@"C:\TEMP\GGG.JSON", JsonConvert.SerializeObject(ConnectedPackages, Formatting.Indented));
+                File.WriteAllText(GetFullFileName(), JsonConvert.SerializeObject(ConnectedPackages, Formatting.Indented));
             }
             catch (Exception)
             {

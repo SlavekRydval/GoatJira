@@ -16,10 +16,14 @@
 
         public MainViewModel(MainModel MainModel, IMainModelService MainModelService, IDialogService DialogService)
         {
+            //initialization
             mainModel = MainModel;
             mainModelService = MainModelService;
             dialogService = DialogService;
             eaRepository = null;
+
+            //read list of packages this addin already has connected with JIRA
+            mainModelService.ReadConnectedPackages(ConnectedPackages);
         }
 
         /// <summary>
@@ -35,13 +39,13 @@
         /// </summary>
         public EA.Repository EARepository
         {
-            get => EARepository;
+            get => eaRepository;
             set {
                 eaRepository = value;
-                if (eaRepository == null || String.IsNullOrEmpty (eaRepository.ProjectGUID))  
-                    ConnectedPackages.Clear();
-                else
-                    mainModelService.ReadConnectedPackages(ConnectedPackages);
+                //if (eaRepository == null || String.IsNullOrEmpty (eaRepository.ProjectGUID))  
+                //    ConnectedPackages.Clear();
+                //else
+                //    mainModelService.ReadConnectedPackages(ConnectedPackages);
             }
         }
 
@@ -53,7 +57,8 @@
             get
             {
                 if (connectPackageWithJiraCommand == null)
-                    connectPackageWithJiraCommand = new RelayCommandWithResult<EA.Package, bool>((package) => ExecuteConnectPackageWithJiraCommand(package));
+                    connectPackageWithJiraCommand = new RelayCommandWithResult<EA.Package, bool>(
+                        (package) => { ConnectPackageWithJiraCommand.Result = ExecuteConnectPackageWithJiraCommand(package);});
                 return connectPackageWithJiraCommand;
             }
 
