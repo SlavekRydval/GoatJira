@@ -1,6 +1,7 @@
 ﻿namespace GoatJira.ViewModel
 {
     using GalaSoft.MvvmLight;
+    using GalaSoft.MvvmLight.Command;
     using GoatJira.Commands;
     using GoatJira.Helpers;
     using GoatJira.Model;
@@ -77,6 +78,18 @@
 
             }
         }
+
+        private RelayCommand aboutCommand;
+        public RelayCommand AboutCommand
+        {
+            get
+            {
+                if (aboutCommand == null)
+                    aboutCommand = new RelayCommand(() => ExecuteAbout());
+                return aboutCommand;
+
+            }
+        }
         #endregion
 
 
@@ -100,6 +113,10 @@
             return false; 
         }
 
+        private void ExecuteAbout()
+        {
+            dialogService.ShowAboutDialog();
+        }
 
 
     }

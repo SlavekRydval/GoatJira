@@ -12,5 +12,9 @@ namespace GoatJira.Helpers
         void ShowMessage(string Message);
         void ShowError(string Message);
         void ShowWarning(string Message);
+
+        void ShowAboutDialog();
+
+
     }
 }

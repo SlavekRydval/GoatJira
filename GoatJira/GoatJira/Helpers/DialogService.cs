@@ -8,6 +8,15 @@ namespace GoatJira.Helpers
 {
     class DialogService : IDialogService
     {
+        public void ShowAboutDialog()
+        {
+            var About = new View.About
+            {
+                //DataContext = DataContext
+            };
+            About.ShowDialog();
+        }
+
         public void ShowError(string Message)
         {
             throw new NotImplementedException();

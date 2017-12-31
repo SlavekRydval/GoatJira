@@ -63,10 +63,10 @@ namespace GoatJira.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;windows-1250&quot;?&gt;
         ///&lt;MDG.Technology version=&quot;1.0&quot;&gt;&lt;Documentation id=&quot;Goat Jira&quot; name=&quot;Goat Jira - Be Connected with Jira&quot; version=&quot;1.0 Alfa&quot; notes=&quot;Will be added later on.&quot; infoURI=&quot;http://www.rydval.cz&quot; supportURI=&quot;slavek@rydval.cz&quot;/&gt;&lt;UMLProfiles&gt;&lt;UMLProfile profiletype=&quot;uml2&quot;&gt;
-        ///			&lt;Documentation id=&quot;AAD8178D-1&quot; name=&quot;Goat Jira&quot; version=&quot;1.0&quot; notes=&quot;Save as profile notes...&quot;/&gt;
+        ///			&lt;Documentation id=&quot;AAD8178D-1&quot; name=&quot;Goat Jira&quot; version=&quot;1.0&quot; notes=&quot;Goat Jira&quot;/&gt;
         ///			&lt;Content&gt;
         ///				&lt;Stereotypes&gt;
-        ///					&lt;Stereotype name=&quot;JiraBug&quot; metatype=&quot;JiraBug&quot; notes=&quot;&quot; cx=&quot;0&quot; cy= [rest of string was truncated]&quot;;.
+        ///					&lt;Stereotype name=&quot;JiraBug&quot; metatype=&quot;JiraBug&quot; notes=&quot;&quot; cx=&quot;0&quot; cy=&quot;0&quot; bgcolor=&quot;-1 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GoatJiraMDG {
             get {

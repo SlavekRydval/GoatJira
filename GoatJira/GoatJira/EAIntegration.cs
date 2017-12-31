@@ -131,7 +131,7 @@ namespace GoatJira
                     /////////                    IsEnabled = AddinViewModel.SetUpJiraConnectionCommand.CanExecute(null);
                     break;
                 case menuItemAbout:
-                    IsEnabled = true;
+                    IsEnabled = mainViewModel.AboutCommand.CanExecute(null);
                     break;
                 case menuItemShowWebsite:
                     /////////                    IsEnabled = AddinViewModel.LoginCommand.CanExecute(null); // vIsProjectOpen
@@ -154,6 +154,9 @@ namespace GoatJira
         {
             switch (ItemName)
             {
+                case menuItemAbout:
+                    mainViewModel.AboutCommand.Execute(null);
+                    break;
 
 
 
@@ -169,9 +172,6 @@ namespace GoatJira
                     /////////                    EAJuraBridge.ShowWebSite(Repository);
                     break;
 
-                case menuItemAbout:
-                    /////////                    (new frmAbout()).ShowDialog();
-                    break;
 
                 //case menuItemConnectToJira:
                 //    EAJuraBridge.ConnectPackageToJIRA(Repository.GetContextObject());
