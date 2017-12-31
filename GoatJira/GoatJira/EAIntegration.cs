@@ -1,4 +1,5 @@
-﻿using GoatJira.ViewModel;
+﻿using GoatJira.Helpers;
+using GoatJira.ViewModel;
 using System;
 
 namespace GoatJira
@@ -57,12 +58,13 @@ namespace GoatJira
 
         #region Menu Definition
         /// 
-        /// Definujeme si někteté položku v Menu
+        /// Menu items
         /// 
         const string menuHeader = "-JIRA Connection via GOAT";
 
 
         const string MDGConnectExternalProject = "&Connect External Project";
+        const string MDGDisconnectExternalProject = "&Disconnect from GoatJira";
 
 
         const string menuItemManageJiraConnection = "Manage JIRA Connection…";
@@ -112,12 +114,19 @@ namespace GoatJira
 
         public void EA_GetMenuState(EA.Repository Repository, string Location, string MenuName, string ItemName, ref bool IsEnabled, ref bool IsChecked)
         {
-            /////////            bool vIsProjectOpen = EAUtils.IsProjectOpen(Repository);
-            /////////EA.ObjectType vOT = vIsProjectOpen ? EAUtils.emergencyGetContextItemType(Repository) : EA.ObjectType.otNone;
+            bool vIsProjectOpen = EAUtils.IsProjectOpen(Repository);
+            EA.ObjectType vOT = vIsProjectOpen ? EAUtils.emergencyGetContextItemType(Repository) : EA.ObjectType.otNone;
 
 
             switch (ItemName)
             {
+                case MDGConnectExternalProject:
+                case MDGDisconnectExternalProject:
+                    //not needed to be sofisticated, Sparx is showing the right menu items in his own logic due to poor design
+                    IsEnabled = vIsProjectOpen && (vOT == EA.ObjectType.otPackage);
+                    break;
+
+
                 case menuItemManageJiraConnection:
                     /////////                    IsEnabled = AddinViewModel.SetUpJiraConnectionCommand.CanExecute(null);
                     break;
@@ -128,9 +137,7 @@ namespace GoatJira
                     /////////                    IsEnabled = AddinViewModel.LoginCommand.CanExecute(null); // vIsProjectOpen
                     break;
                 case menuItemReadRefreshIssues:
-                case MDGConnectExternalProject:
-                    //case menuItemConnectToJira:
-                    /////////                    IsEnabled = vIsProjectOpen && (vOT == EA.ObjectType.otPackage);
+
                     break;
                 case menuItemNavigateIssueToWeb:
                     /////////                    IsEnabled = vIsProjectOpen && (vOT == EA.ObjectType.otElement);
@@ -142,11 +149,15 @@ namespace GoatJira
         }
 
 
-        /// Konečně! Někdo zvolil některé z našeho menu, takže směle do toho.
+        /// Someone has choosen my menu item
         public void EA_MenuClick(EA.Repository Repository, string Location, string MenuName, string ItemName)
         {
             switch (ItemName)
             {
+
+
+
+
                 //case MDGConnectExternalProject: 
                 case menuItemManageJiraConnection:
                     //EAJuraBridge.LinkCurrentProjectWithJira(Repository);
@@ -246,14 +257,16 @@ namespace GoatJira
         /// </summary>
         /// <param name="Repository"></param>
         /// <param name="PackageGuid"></param>
-        /// <returns></returns>
+        /// <returns>Returns a non-zero to indicate that a disconnection has occurred enabling Enterprise Architect 
+        /// to update the user interface. A zero indicates that the user has not disconnected from an external project.</returns>
         public int MDG_Disconnect(EA.Repository Repository, string PackageGuid)
         {
-            return 1;
+            mainViewModel.DisconnectPackageFromJiraCommand.Execute(Repository.GetPackageByGuid(PackageGuid));
+            return mainViewModel.DisconnectPackageFromJiraCommand.Result ? 1 : 0;
         }
 
         /// <summary>
-        /// 
+        /// This method is called just once when addin is loaded (and no repository is opened).
         /// </summary>
         /// <param name="Repository"></param>
         /// <returns>Returns an array of GUID strings representing individual Enterprise Architect Packages.</returns>
@@ -288,7 +301,9 @@ namespace GoatJira
             switch (PropertyName)
             {
                 //case "IconID": return System.Reflection.Assembly.GetExecutingAssembly().Location + "#treeview.ico";
-                case "IconID": return @"c:\Slávek\Projects\Jura\Debug\Resources.dll#treeview.ico";
+                //case "IconID": return @"c:\Slávek\Projects\Jura\Debug\Resources.dll#treeview.ico";
+//                case "IconID": return @"c:\Users\Slávek\ResEdit Projects\GoatJiraResources\GoatJiraResources.exe#100";
+                case "IconID": return System.Reflection.Assembly.GetExecutingAssembly().Location + "#IcoTreeView";
                 //case "IconID": return @"e:\Projects\Visual Studio Solutions\Pokusy\Resources\Debug\Resources.dll#101";
                 case "Language": return "";
                 case "HiddenMenus": return EA.MDGMenus.mgBuildProject | EA.MDGMenus.mgMerge | EA.MDGMenus.mgRun;

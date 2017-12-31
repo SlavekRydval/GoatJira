@@ -63,6 +63,20 @@
             }
 
         }
+
+        private RelayCommandWithResult<EA.Package, bool> disconnectPackageFromJiraCommand;
+        public RelayCommandWithResult<EA.Package, bool> DisconnectPackageFromJiraCommand
+        {
+            get
+            {
+                if (disconnectPackageFromJiraCommand == null)
+                    disconnectPackageFromJiraCommand = new RelayCommandWithResult<EA.Package, bool>(
+                        (package) => { DisconnectPackageFromJiraCommand.Result = ExecuteDisconnectPackageFromJiraCommand(package); });
+                    ;
+                return disconnectPackageFromJiraCommand;
+
+            }
+        }
         #endregion
 
 
@@ -71,6 +85,19 @@
             ConnectedPackages.Add(new PackageModel() { GUID = Package.PackageGUID });
             mainModelService.SaveConnectedPackages(ConnectedPackages);
             return true;
+        }
+
+        private bool ExecuteDisconnectPackageFromJiraCommand(EA.Package Package)
+        {
+            foreach (var ConnectedPackage in ConnectedPackages)
+            {
+                if (ConnectedPackage.GUID == Package.PackageGUID)
+                {
+                    ConnectedPackages.Remove(ConnectedPackage);
+                    return true;
+                }
+            }
+            return false; 
         }
 
 
