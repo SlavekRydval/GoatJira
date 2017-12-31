@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using Newtonsoft.Json;
+using GalaSoft.MvvmLight;
 
 namespace GoatJira.Model
 {
     
-    class MainModel
+    class MainModel : ObservableObject
     {
         public ObservableCollection<PackageModel> ConnectedPackages = new ObservableCollection<PackageModel>();
     }

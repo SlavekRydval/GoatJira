@@ -115,7 +115,7 @@
 
         private void ExecuteAbout()
         {
-            dialogService.ShowAboutDialog();
+            dialogService.ShowAboutDialog(new AboutViewModel(new AboutModelService(), dialogService));
         }
 
 

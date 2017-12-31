@@ -72,11 +72,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\RelayCommandWithResult.cs" />
+    <Compile Include="Design\DesignAboutModelService.cs" />
     <Compile Include="EAIntegration.cs" />
     <Compile Include="Helpers\DialogService.cs" />
     <Compile Include="Helpers\EAUtils.cs" />
     <Compile Include="Helpers\IDialogService.cs" />
-    <Compile Include="Model\AddinMetamodelInformationModel.cs" />
+    <Compile Include="Model\AboutModel.cs" />
+    <Compile Include="Model\AboutModelService.cs" />
+    <Compile Include="Model\IAboutModelService.cs" />
     <Compile Include="Model\IMainModelService.cs" />
     <Compile Include="Model\IPackageModelService.cs" />
     <Compile Include="Model\MainModel.cs" />
@@ -89,6 +92,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
