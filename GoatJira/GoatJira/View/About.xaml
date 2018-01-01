@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:GoatJira.View"
         xmlns:viewmodel="clr-namespace:GoatJira.ViewModel"
         mc:Ignorable="d"
-        Title="{Binding Path=AboutTitle}" Height="322.613" Width="573.608" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Initialized="Window_Initialized"
-        DataContext="{Binding Source={StaticResource ResourceKey=AboutData}}"
+        Title="{Binding Path=AboutTitle}" Height="353.518" Width="585.608" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
         >
+        <!--DataContext="{Binding Source={StaticResource ResourceKey=AboutData}}"-->
 
     <Window.Resources>
         <ResourceDictionary>
@@ -28,6 +28,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -38,27 +39,31 @@
         <Label Grid.Row="0" Grid.Column="0" Margin="3" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Content="{Binding Path=FullNameWithVersion}"/>
 
         <Label Grid.Row="1" Grid.Column="0" Margin="3" VerticalAlignment="Center" FontSize="14" FontStyle="Italic">Use Sparx Enterprise Architect being connected to Atlassian JIRA</Label>
-        <Label Grid.Row="2" Grid.Column="0" Margin="3" VerticalAlignment="Center" Cursor="Hand">© 2016-2018 Slávek Rydval</Label>
+        <Label Grid.Row="2" Grid.Column="0" Margin="3" VerticalAlignment="Center" Content="{Binding Path=Copyrigth}"/>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Margin="3" DockPanel.Dock="Left" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Label VerticalAlignment="Center">Licence:</Label>
+            <TextBlock VerticalAlignment="Center"><Hyperlink NavigateUri="{Binding Metadata.LicenceURI}" Command="{Binding Path=RunURI}" CommandParameter="{Binding Path=Metadata.LicenceURI}"><Run Text="{Binding Path=Metadata.Licence}"/></Hyperlink></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="0" Margin="3" DockPanel.Dock="Left" HorizontalAlignment="Left" Orientation="Horizontal">
             <Label VerticalAlignment="Center">Product web page:</Label>
-            <TextBlock VerticalAlignment="Center"><Hyperlink NavigateUri="{Binding Metadata.ProductWebPage}" Click="Hyperlink_Click"><Run Text="{Binding Path=Metadata.ProductWebPage}"/></Hyperlink></TextBlock>
+            <TextBlock VerticalAlignment="Center"><Hyperlink NavigateUri="{Binding Metadata.ProductWebPage}" Command="{Binding Path=RunURI}" CommandParameter="{Binding Path=Metadata.ProductWebPage}"><Run Text="{Binding Path=Metadata.ProductWebPage}"/></Hyperlink></TextBlock>
         </StackPanel>
 
-        <Label Grid.Row="4" Grid.Column="0" Margin="3" VerticalAlignment="Center" FontWeight="SemiBold">Contact author:</Label>
-
-        <StackPanel Grid.Row="5" Grid.Column="0" Margin="3" DockPanel.Dock="Left" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Label VerticalAlignment="Center" Padding="25,5,5,5" FontWeight="Medium">e-mail:</Label>
-            <TextBlock VerticalAlignment="Center"><Hyperlink NavigateUri="mailto:slavek@rydval.cz" Click="Hyperlink_Click">slavek@rydval.cz</Hyperlink></TextBlock>
-        </StackPanel>
+        <Label Grid.Row="5" Grid.Column="0" Margin="3" VerticalAlignment="Center" FontWeight="SemiBold">Contact author:</Label>
 
         <StackPanel Grid.Row="6" Grid.Column="0" Margin="3" DockPanel.Dock="Left" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Label VerticalAlignment="Center" Padding="25,5,5,5" FontWeight="Medium">homepage:</Label>
-            <TextBlock VerticalAlignment="Center"><Hyperlink NavigateUri="http://www.rydval.cz" Click="Hyperlink_Click">http://www.rydval.cz</Hyperlink></TextBlock>
+            <Label VerticalAlignment="Center" Padding="25,5,5,5" FontWeight="Medium">e-mail:</Label>
+            <TextBlock VerticalAlignment="Center"><Hyperlink NavigateUri="{Binding Path=EmailURI}" Command="{Binding Path=RunURI}" CommandParameter="{Binding Path=EmailURI}"><Run Text="{Binding Path=Metadata.Email}"/></Hyperlink></TextBlock>
         </StackPanel>
 
+        <StackPanel Grid.Row="7" Grid.Column="0" Margin="3" DockPanel.Dock="Left" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Label VerticalAlignment="Center" Padding="25,5,5,5" FontWeight="Medium">homepage:</Label>
+            <TextBlock VerticalAlignment="Center"><Hyperlink NavigateUri="{Binding Path=Metadata.AuthorHomePage}" Command="{Binding Path=RunURI}" CommandParameter="{Binding Path=Metadata.AuthorHomePage}"><Run Text="{Binding Path=Metadata.AuthorHomePage}"/></Hyperlink></TextBlock>
+        </StackPanel>
 
-        <StackPanel Grid.Row="8" Grid.Column="0" DockPanel.Dock="Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
+        <StackPanel Grid.Row="9" Grid.Column="0" DockPanel.Dock="Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
             <Button Margin="5,10,2,10" Padding="10,3,10,3" IsDefault="True" IsCancel="True" Click="Button_Click">_OK</Button>
         </StackPanel>
 

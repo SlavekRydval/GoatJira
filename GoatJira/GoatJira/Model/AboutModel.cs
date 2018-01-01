@@ -13,5 +13,9 @@ namespace GoatJira.Model
         public int MinorVersion { get; set; }
         public int Revision { get; set; }
         public string VersionAdditionalInfo { get; set; }
+        public int CopyrightYearStart { get; set; }
+        public int CopyrightYearEnd { get; set; }
+        public string Licence { get; set; }
+        public string LicenceURI { get; set; }
     }
 }

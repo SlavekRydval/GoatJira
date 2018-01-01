@@ -19,7 +19,11 @@
                 MajorVersion = version.Major,
                 MinorVersion = version.Minor,
                 Revision = version.Revision,
-                VersionAdditionalInfo = "beta"
+                VersionAdditionalInfo = "beta",
+                CopyrightYearStart = 2016,
+                CopyrightYearEnd = 2018,
+                Licence = "MIT",
+                LicenceURI = "https://github.com/SlavekRydval/GoatJira/blob/master/LICENSE"
             };
         }
     }

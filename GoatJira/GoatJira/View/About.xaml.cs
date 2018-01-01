@@ -17,24 +17,11 @@ namespace GoatJira.View
 
         public About(object DataContext)
         {
-//            this.Resources.
             this.DataContext = DataContext;
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Window_Initialized(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(((Hyperlink)sender).NavigateUri.OriginalString);
-        }
+        ///TODO: Is this valid MVVM pattern? Probably no, just examine the topic later on.
+        private void Button_Click(object sender, RoutedEventArgs e) => Close();
     }
 }
