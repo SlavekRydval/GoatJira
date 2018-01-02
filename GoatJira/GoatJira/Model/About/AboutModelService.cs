@@ -1,4 +1,4 @@
-﻿namespace GoatJira.Model
+﻿namespace GoatJira.Model.About
 {
     class AboutModelService : IAboutModelService
     {

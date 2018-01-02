@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using GoatJira.Model.Package;
 
 namespace GoatJira.Model
 {

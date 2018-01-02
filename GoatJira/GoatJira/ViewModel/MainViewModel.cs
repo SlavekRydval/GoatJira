@@ -5,7 +5,8 @@
     using GoatJira.Commands;
     using GoatJira.Helpers;
     using GoatJira.Model;
-    using System;
+    using GoatJira.Model.About;
+    using GoatJira.Model.Package;
     using System.Collections.ObjectModel;
 
     class MainViewModel: ViewModelBase

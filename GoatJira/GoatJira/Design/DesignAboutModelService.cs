@@ -1,7 +1,7 @@
-﻿using GoatJira.Model;
-
-namespace GoatJira.Design
+﻿namespace GoatJira.Design
 {
+    using GoatJira.Model.About;
+
     class DesignAboutModelService: IAboutModelService
     {
         public AboutModel Read()

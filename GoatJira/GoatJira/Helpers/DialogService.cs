@@ -25,7 +25,8 @@ namespace GoatJira.Helpers
 
         public void ShowAboutDialog(object DataContext)
         {
-            var About = new View.About (DataContext);
+            var About = new View.About ();
+            About.DataContext = DataContext;
             About.ShowDialog();
         }
 

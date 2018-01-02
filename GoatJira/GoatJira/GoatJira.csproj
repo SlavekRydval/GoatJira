@@ -73,19 +73,22 @@
   <ItemGroup>
     <Compile Include="Commands\RelayCommandWithResult.cs" />
     <Compile Include="Design\DesignAboutModelService.cs" />
+    <Compile Include="Design\DesignPackageConnectionSettingsModelService.cs" />
     <Compile Include="EAIntegration.cs" />
     <Compile Include="Helpers\DialogService.cs" />
     <Compile Include="Helpers\EAUtils.cs" />
     <Compile Include="Helpers\IDialogService.cs" />
-    <Compile Include="Model\AboutModel.cs" />
-    <Compile Include="Model\AboutModelService.cs" />
-    <Compile Include="Model\IAboutModelService.cs" />
+    <Compile Include="Model\About\AboutModel.cs" />
+    <Compile Include="Model\About\AboutModelService.cs" />
+    <Compile Include="Model\About\IAboutModelService.cs" />
     <Compile Include="Model\IMainModelService.cs" />
-    <Compile Include="Model\IPackageModelService.cs" />
+    <Compile Include="Model\PackageConnectionSettings\IPackageConnectionSettingsModelService.cs" />
+    <Compile Include="Model\Package\IPackageModelService.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\MainModelService.cs" />
-    <Compile Include="Model\PackageConnectionSettingsModel.cs" />
-    <Compile Include="Model\PackageModel.cs" />
+    <Compile Include="Model\PackageConnectionSettings\PackageConnectionSettingsModel.cs" />
+    <Compile Include="Model\PackageConnectionSettings\PackageConnectionSettingsModelService.cs" />
+    <Compile Include="Model\Package\PackageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -94,8 +97,13 @@
     </Compile>
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PackageConnectionSettingsViewModel.cs" />
     <Compile Include="View\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EnumMatchToBooleanConverter.cs" />
+    <Compile Include="View\PackageConnectionSettings.xaml.cs">
+      <DependentUpon>PackageConnectionSettings.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +138,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\PackageConnectionSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

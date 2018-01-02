@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 
-namespace GoatJira.Model
+namespace GoatJira.Model.About
 {
     class AboutModel: ObservableObject
     {

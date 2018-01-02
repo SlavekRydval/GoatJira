@@ -1,4 +1,4 @@
-﻿namespace GoatJira.Model
+﻿namespace GoatJira.Model.PackageConnectionSettings
 {
     using GalaSoft.MvvmLight;
 
@@ -10,7 +10,7 @@
     /// </summary>
     enum PackageConnectionSettingsType { Jql, EpicsAndStories, UserSearch }
 
-    class PackageConnectionSettingModel: ObservableObject
+    class PackageConnectionSettingsModel: ObservableObject
     {
         private string _Jql;
         private string _EpicsAndStoriesJql;

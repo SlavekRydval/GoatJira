@@ -15,11 +15,11 @@ namespace GoatJira.View
             InitializeComponent();
         }
 
-        public About(object DataContext)
-        {
-            this.DataContext = DataContext;
-            InitializeComponent();
-        }
+        //public About(object DataContext)
+        //{
+        //    this.DataContext = DataContext;
+        //    InitializeComponent();
+        //}
 
         ///TODO: Is this valid MVVM pattern? Probably no, just examine the topic later on.
         private void Button_Click(object sender, RoutedEventArgs e) => Close();

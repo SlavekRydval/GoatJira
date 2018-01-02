@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GoatJira.Helpers;
-using GoatJira.Model;
+using GoatJira.Model.About;
 using System.Diagnostics;
 
 namespace GoatJira.ViewModel
