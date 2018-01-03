@@ -15,5 +15,10 @@ namespace GoatJira.Design
                 UserSavedSearch = ""
             };
         }
+
+        public void Save(PackageConnectionSettingsModel PackageConnectionSettings)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

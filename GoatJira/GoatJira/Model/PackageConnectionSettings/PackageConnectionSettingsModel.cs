@@ -53,5 +53,4 @@
             set => Set(nameof(Type), ref _Type, value);
         }
     }
-
 }

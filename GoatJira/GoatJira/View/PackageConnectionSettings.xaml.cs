@@ -20,9 +20,5 @@ namespace GoatJira.View
                 this.DialogResult = true;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

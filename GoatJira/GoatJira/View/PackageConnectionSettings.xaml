@@ -7,9 +7,9 @@
         xmlns:viewmodel="clr-namespace:GoatJira.ViewModel"
         mc:Ignorable="d"
         Title="Package Connection Settings" Height="259.226" Width="417" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
-        DataContext="{Binding Source={StaticResource PackageConnectionSettingsData}}"
         >
    
+        <!--DataContext="{Binding Source={StaticResource PackageConnectionSettingsData}}"-->
     
     <Window.Resources>
         <ResourceDictionary>
@@ -65,7 +65,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button Margin="3,10,2,10" Padding="10,3,10,3" IsDefault="True" Click="Button_Click_1">_Connection settings...</Button>
+            <!--<Button Margin="3,10,2,10" Padding="10,3,10,3" IsDefault="True">_Connection settings...</Button>-->
 
             <StackPanel Grid.Row="0" Grid.Column="2" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Margin="10,10,2,10" Padding="10,3,10,3" IsDefault="True" Click="Button_Click">_OK</Button>

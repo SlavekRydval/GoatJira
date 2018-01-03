@@ -3,5 +3,6 @@
     interface IPackageConnectionSettingsModelService
     {
         PackageConnectionSettingsModel Read();
+        void Save(PackageConnectionSettingsModel PackageConnectionSettings);
     }
 }

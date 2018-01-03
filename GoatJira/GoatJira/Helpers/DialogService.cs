@@ -25,10 +25,20 @@ namespace GoatJira.Helpers
 
         public void ShowAboutDialog(object DataContext)
         {
-            var About = new View.About ();
-            About.DataContext = DataContext;
+            var About = new View.About
+            {
+                DataContext = DataContext
+            };
             About.ShowDialog();
         }
 
+        public bool ShowPackageConnectionSettingsDialog(object DataContext)
+        {
+            var PackageConnectionSettins = new View.PackageConnectionSettings
+            {
+                DataContext = DataContext
+            };
+            return PackageConnectionSettins.ShowDialog() == true ? true : false;
+        }
     }
 }

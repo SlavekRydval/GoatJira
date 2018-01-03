@@ -7,6 +7,7 @@
     using GoatJira.Model;
     using GoatJira.Model.About;
     using GoatJira.Model.Package;
+    using GoatJira.Model.PackageConnectionSettings;
     using System.Collections.ObjectModel;
 
     class MainViewModel: ViewModelBase
@@ -91,6 +92,18 @@
 
             }
         }
+
+        private RelayCommand<EA.Package> setPackageSettingsCommand;
+        public RelayCommand<EA.Package> SetPackageSettingsCommand
+        {
+            get
+            {
+                if (setPackageSettingsCommand == null)
+                    setPackageSettingsCommand = new RelayCommand<EA.Package>((package) => ExecuteSetPackageSettings(package),
+                        (package) => CanExecuteSetPackageSettings(package));
+                return setPackageSettingsCommand;
+            }
+        }
         #endregion
 
 
@@ -118,6 +131,21 @@
         {
             dialogService.ShowAboutDialog(new AboutViewModel(new AboutModelService(), dialogService));
         }
+
+        private bool CanExecuteSetPackageSettings(EA.Package Package)
+        {
+            foreach (var ConnectedPackage in ConnectedPackages)
+                if (ConnectedPackage.GUID == Package.PackageGUID)
+                    return true;
+            return false;
+        }
+
+        private void ExecuteSetPackageSettings(EA.Package Package)
+        {
+            var dlg = new PackageConnectionSettingsViewModel(new PackageConnectionSettingsModelService(Package), dialogService);
+            dlg.EditPackageConnectionSettings();
+        }
+
 
 
     }

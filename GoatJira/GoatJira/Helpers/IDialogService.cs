@@ -15,6 +15,13 @@ namespace GoatJira.Helpers
 
         void ShowAboutDialog(object DataContext);
 
+        /// <summary>
+        /// Shows dialog for changing the package connection settings data
+        /// </summary>
+        /// <param name="DataContext"></param>
+        /// <returns>true if data was changed</returns>
+        bool ShowPackageConnectionSettingsDialog(object DataContext);
+
 
     }
 }

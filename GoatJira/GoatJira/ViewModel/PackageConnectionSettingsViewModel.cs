@@ -6,14 +6,14 @@
 
     class PackageConnectionSettingsViewModel : ViewModelBase
     {
-        public IPackageConnectionSettingsModelService PackageConnectionSettingsModelService { get; }
-        public IDialogService DialogService { get; }
+        private IPackageConnectionSettingsModelService PackageConnectionSettingsModelService { get; }
+        private IDialogService DialogService { get; }
 
-        public PackageConnectionSettingsModel PackageConnectionSettings { get; }
+        public PackageConnectionSettingsModel PackageConnectionSettings { get; private set; }
 
 
         public PackageConnectionSettingsViewModel() : this(
-            IsInDesignModeStatic ? (IPackageConnectionSettingsModelService)new Design.DesignPackageConnectionSettingsModelService() : new PackageConnectionSettingsModelService(), 
+            IsInDesignModeStatic ? (IPackageConnectionSettingsModelService)new Design.DesignPackageConnectionSettingsModelService() : new PackageConnectionSettingsModelService(null), 
             new DialogService())
         {
 
@@ -30,6 +30,16 @@
                 PackageConnectionSettings = this.PackageConnectionSettingsModelService.Read();
 #endif
         }
+
+        public void EditPackageConnectionSettings()
+        {
+            PackageConnectionSettings = PackageConnectionSettingsModelService.Read();
+            if (DialogService.ShowPackageConnectionSettingsDialog(this))
+                PackageConnectionSettingsModelService.Save(PackageConnectionSettings);
+        }
+
+
+
 
     }
 }

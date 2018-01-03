@@ -1,6 +1,7 @@
 ﻿using GoatJira.Helpers;
 using GoatJira.ViewModel;
 using System;
+using System.Windows;
 
 namespace GoatJira
 {
@@ -17,7 +18,7 @@ namespace GoatJira
         public String EA_Connect(EA.Repository Repository)
         {
 #if DEBUG
-            System.Windows.Forms.MessageBox.Show("Append a debugger if needed.");
+            //MessageBox.Show("Append a debugger if needed.");
 #endif
 
             mainViewModel = new MainViewModel(new Model.MainModel(), new Model.MainModelService(), new Helpers.DialogService())
@@ -37,6 +38,7 @@ namespace GoatJira
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
+
 
         public object EA_OnInitializeTechnologies(EA.Repository Repository)
         {
@@ -67,10 +69,9 @@ namespace GoatJira
         const string MDGDisconnectExternalProject = "&Disconnect from GoatJira";
 
 
-        const string menuItemManageJiraConnection = "Manage JIRA Connection…";
+        const string menuItemSetPackageConnectionSettings = "Set package JIRA connection settings…";
         const string menuItemShowWebsite = "&Show JIRA Main Web Site";
 
-        //const string menuItemConnectToJira = "Connect package to JIRA...";
         const string menuItemReadRefreshIssues = "Read/Refresh issues in package";
 
         const string menuItemNavigateIssueToWeb = "&Show Selected JIRA Issue in Browser";
@@ -93,11 +94,10 @@ namespace GoatJira
                 case menuHeader:
                     string[] subMenus = {
                                             "PROJECT",
-                                            menuItemManageJiraConnection,
                                             menuItemShowWebsite,
                                             "-",
                                             "PACKAGE",
-                                            //menuItemConnectToJira,
+                                            menuItemSetPackageConnectionSettings,
                                             menuItemReadRefreshIssues,
                                             "-",
                                             "ITEM",
@@ -122,25 +122,33 @@ namespace GoatJira
             {
                 case MDGConnectExternalProject:
                 case MDGDisconnectExternalProject:
-                    //not needed to be sofisticated, Sparx is showing the right menu items in his own logic due to poor design
+                    //not needed to be sofisticated, Sparx is showing the right menu items in his own logic due to its poor design
                     IsEnabled = vIsProjectOpen && (vOT == EA.ObjectType.otPackage);
-                    break;
-
-
-                case menuItemManageJiraConnection:
-                    /////////                    IsEnabled = AddinViewModel.SetUpJiraConnectionCommand.CanExecute(null);
                     break;
                 case menuItemAbout:
                     IsEnabled = mainViewModel.AboutCommand.CanExecute(null);
                     break;
+                case menuItemSetPackageConnectionSettings:
+                    IsEnabled = vIsProjectOpen && vOT == EA.ObjectType.otPackage && mainViewModel.SetPackageSettingsCommand.CanExecute (Repository.GetContextObject());
+                    break;
+
+
+
+
+
+
+
+
                 case menuItemShowWebsite:
                     /////////                    IsEnabled = AddinViewModel.LoginCommand.CanExecute(null); // vIsProjectOpen
+                    IsEnabled = false;
                     break;
                 case menuItemReadRefreshIssues:
-
+                    IsEnabled = false;
                     break;
                 case menuItemNavigateIssueToWeb:
                     /////////                    IsEnabled = vIsProjectOpen && (vOT == EA.ObjectType.otElement);
+                    IsEnabled = false;
                     break;
                 default:
                     IsEnabled = false;
@@ -157,26 +165,18 @@ namespace GoatJira
                 case menuItemAbout:
                     mainViewModel.AboutCommand.Execute(null);
                     break;
-
-
-
-
-                //case MDGConnectExternalProject: 
-                case menuItemManageJiraConnection:
-                    //EAJuraBridge.LinkCurrentProjectWithJira(Repository);
-/////////                    AddinViewModel.SetUpJiraConnectionCommand.Execute(null);
-                    //AddinViewModel.Login();
+                case menuItemSetPackageConnectionSettings:
+                    mainViewModel.SetPackageSettingsCommand.Execute(Repository.GetContextObject());
                     break;
+
+
+
+
+
 
                 case menuItemShowWebsite:
                     /////////                    EAJuraBridge.ShowWebSite(Repository);
                     break;
-
-
-                //case menuItemConnectToJira:
-                //    EAJuraBridge.ConnectPackageToJIRA(Repository.GetContextObject());
-                //    break;
-
                 case menuItemReadRefreshIssues:
                     /////////                    EAJuraBridge.SynchronizePackageWithJira(Repository, Repository.GetContextObject());
                     break;
@@ -188,7 +188,7 @@ namespace GoatJira
                     break;
 
                 default:
-                    /////////                    MessageBox.Show($"Unhandled menu item '{ItemName}'!");
+                    MessageBox.Show($"Unhandled menu item '{ItemName}'!");
                     break;
             }
         }
