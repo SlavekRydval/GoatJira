@@ -1,0 +1,54 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GoatJira.View"
+        xmlns:viewmodel="clr-namespace:GoatJira.ViewModel"
+        x:Class="GoatJira.View.LoginInformation"
+        mc:Ignorable="d"
+        Title="JIRA Login" Height="195.021" Width="349.984" ResizeMode="NoResize" 
+        ShowInTaskbar="False" WindowStartupLocation="CenterScreen" 
+        FocusManager.FocusedElement="{Binding ElementName=txtServer}"
+        >
+    <!--DataContext="{Binding Source={StaticResource LoginInformationData}}"-->
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <viewmodel:LoginInformationViewModel x:Key="LoginInformationData"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+
+
+    <Grid Margin="3,3,10,3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Margin="3" VerticalAlignment="Center" Target="{Binding ElementName=txtServer}" Content="Jira _Server:"/>
+        <TextBox x:Name="txtServer" Grid.Row="0" Grid.Column="1" Margin="3" Height="Auto" VerticalAlignment="Center" Text="{Binding Path=LoginInformation.URI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Margin="3" VerticalAlignment="Center" Target="{Binding ElementName=txtUsername}" Content="_Username:"/>
+        <TextBox x:Name="txtUsername" Grid.Row="1" Grid.Column="1" Margin="3" Height="Auto" VerticalAlignment="Center" Text="{Binding Path=LoginInformation.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Margin="3" VerticalAlignment="Center" Target="{Binding ElementName=txtPassword}" Content="_Password:"/>
+        <PasswordBox x:Name="txtPassword" Grid.Row="2" Grid.Column="1" Margin="3" Height="Auto" VerticalAlignment="Center"/>
+
+        <CheckBox Grid.Row="3" Grid.Column="1" Margin="3" Content="Save my pass_word in a secure way" IsChecked="{Binding Path=LoginInformation.SavePassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Margin="3,10,3,10" Padding="15,3,15,3" IsDefault="True" Click="Button_Click" Content="_OK"/>
+            <Button Margin="2,10,3,10" Padding="8,3,8,3" IsCancel="True" Content="_Cancel"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

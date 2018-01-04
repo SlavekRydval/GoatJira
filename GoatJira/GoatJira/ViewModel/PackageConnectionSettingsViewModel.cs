@@ -31,11 +31,14 @@
 #endif
         }
 
-        public void EditPackageConnectionSettings()
+        public bool EditPackageConnectionSettings()
         {
+            bool result;
             PackageConnectionSettings = PackageConnectionSettingsModelService.Read();
-            if (DialogService.ShowPackageConnectionSettingsDialog(this))
+            result = DialogService.ShowPackageConnectionSettingsDialog(this);
+            if (result)
                 PackageConnectionSettingsModelService.Save(PackageConnectionSettings);
+            return result;
         }
 
 

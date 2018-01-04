@@ -69,7 +69,7 @@
 
             <StackPanel Grid.Row="0" Grid.Column="2" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Margin="10,10,2,10" Padding="10,3,10,3" IsDefault="True" Click="Button_Click">_OK</Button>
-                <Button Margin="10,10,10,10" Padding="10,3,10,3" IsCancel="True" Click="Button_Click">_Cancel</Button>
+                <Button Margin="10,10,10,10" Padding="10,3,10,3" IsCancel="True">_Cancel</Button>
             </StackPanel>
 
         </Grid>

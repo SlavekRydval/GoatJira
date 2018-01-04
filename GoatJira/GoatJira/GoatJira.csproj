@@ -56,6 +56,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -73,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Commands\RelayCommandWithResult.cs" />
     <Compile Include="Design\DesignAboutModelService.cs" />
+    <Compile Include="Design\DesignLoginInformationModelService.cs" />
     <Compile Include="Design\DesignPackageConnectionSettingsModelService.cs" />
     <Compile Include="EAIntegration.cs" />
     <Compile Include="Helpers\DialogService.cs" />
@@ -82,6 +84,9 @@
     <Compile Include="Model\About\AboutModelService.cs" />
     <Compile Include="Model\About\IAboutModelService.cs" />
     <Compile Include="Model\IMainModelService.cs" />
+    <Compile Include="Model\LoginInformation\ILoginInformationModelService.cs" />
+    <Compile Include="Model\LoginInformation\LoginInformationModel.cs" />
+    <Compile Include="Model\LoginInformation\LoginInformationModelService.cs" />
     <Compile Include="Model\PackageConnectionSettings\IPackageConnectionSettingsModelService.cs" />
     <Compile Include="Model\Package\IPackageModelService.cs" />
     <Compile Include="Model\MainModel.cs" />
@@ -96,12 +101,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AboutViewModel.cs" />
+    <Compile Include="ViewModel\LoginInformationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PackageConnectionSettingsViewModel.cs" />
     <Compile Include="View\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EnumMatchToBooleanConverter.cs" />
+    <Compile Include="View\LoginInformation.xaml.cs">
+      <DependentUpon>LoginInformation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PackageConnectionSettings.xaml.cs">
       <DependentUpon>PackageConnectionSettings.xaml</DependentUpon>
     </Compile>
@@ -109,6 +118,7 @@
   <ItemGroup>
     <None Include="MDG Profile\GoatJiraMDG.eap" />
     <None Include="packages.config" />
+    <None Include="Tests\TestingGoatJira.EAP" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -138,6 +148,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\LoginInformation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

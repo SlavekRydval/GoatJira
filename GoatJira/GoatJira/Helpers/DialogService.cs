@@ -1,44 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GoatJira.Helpers
+﻿namespace GoatJira.Helpers
 {
+    using GoatJira.ViewModel;
+    using System.Windows;
+
     class DialogService : IDialogService
     {
-        public void ShowError(string Message)
-        {
-            throw new NotImplementedException();
-        }
+        public void ShowError(string Message) =>
+            MessageBox.Show(Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-        public void ShowMessage(string Message)
-        {
-            throw new NotImplementedException();
-        }
+        public void ShowMessage(string Message) =>
+            MessageBox.Show(Message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
-        public void ShowWarning(string Message)
-        {
-            throw new NotImplementedException();
-        }
+        public void ShowWarning(string Message) =>
+            MessageBox.Show(Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
 
-        public void ShowAboutDialog(object DataContext)
-        {
-            var About = new View.About
-            {
-                DataContext = DataContext
-            };
-            About.ShowDialog();
-        }
+        public void ShowAboutDialog(object DataContext) =>
+            (new View.About { DataContext = DataContext }).ShowDialog();
 
-        public bool ShowPackageConnectionSettingsDialog(object DataContext)
+        public bool ShowPackageConnectionSettingsDialog(object DataContext) =>
+            (new View.PackageConnectionSettings { DataContext = DataContext }).ShowDialog() == true ? true : false;
+
+        public bool ShowSetLoginInformationDialog(LoginInformationViewModel DataContext) 
         {
-            var PackageConnectionSettins = new View.PackageConnectionSettings
-            {
-                DataContext = DataContext
-            };
-            return PackageConnectionSettins.ShowDialog() == true ? true : false;
+            bool result; 
+            var LoginInformationDlg = new View.LoginInformation() { DataContext = DataContext};
+            if (DataContext.LoginInformation.SavePassword)
+                LoginInformationDlg.txtPassword.Password = DataContext.LoginInformation.Password;
+            result = LoginInformationDlg.ShowDialog() == true ? true : false;
+            if (result && DataContext.LoginInformation.SavePassword)
+                DataContext.LoginInformation.Password = LoginInformationDlg.txtPassword.Password;
+            return result; 
         }
     }
 }

@@ -6,6 +6,7 @@
     using GoatJira.Helpers;
     using GoatJira.Model;
     using GoatJira.Model.About;
+    using GoatJira.Model.LoginInformation;
     using GoatJira.Model.Package;
     using GoatJira.Model.PackageConnectionSettings;
     using System.Collections.ObjectModel;
@@ -16,17 +17,21 @@
         private readonly MainModel mainModel;
         private readonly IMainModelService mainModelService; 
         private EA.Repository eaRepository;
+        private readonly LoginInformationViewModel loginInformationViewModel;
+        
 
-        public MainViewModel(MainModel MainModel, IMainModelService MainModelService, IDialogService DialogService)
+        public MainViewModel(MainModel MainModel, IMainModelService MainModelService, IDialogService DialogService, ILoginInformationModelService LoginInformationModelService)
         {
             //initialization
+            eaRepository = null;
+
             mainModel = MainModel;
             mainModelService = MainModelService;
             dialogService = DialogService;
-            eaRepository = null;
 
             //read list of packages this addin already has connected with JIRA
             mainModelService.ReadConnectedPackages(ConnectedPackages);
+            loginInformationViewModel = new LoginInformationViewModel(LoginInformationModelService, dialogService);
         }
 
         /// <summary>
@@ -43,13 +48,7 @@
         public EA.Repository EARepository
         {
             get => eaRepository;
-            set {
-                eaRepository = value;
-                //if (eaRepository == null || String.IsNullOrEmpty (eaRepository.ProjectGUID))  
-                //    ConnectedPackages.Clear();
-                //else
-                //    mainModelService.ReadConnectedPackages(ConnectedPackages);
-            }
+            set => eaRepository = value;
         }
 
 
@@ -93,15 +92,26 @@
             }
         }
 
-        private RelayCommand<EA.Package> setPackageSettingsCommand;
-        public RelayCommand<EA.Package> SetPackageSettingsCommand
+        private RelayCommandWithResult<EA.Package, bool> setPackageSettingsCommand;
+        public RelayCommandWithResult<EA.Package, bool> SetPackageSettingsCommand
         {
             get
             {
                 if (setPackageSettingsCommand == null)
-                    setPackageSettingsCommand = new RelayCommand<EA.Package>((package) => ExecuteSetPackageSettings(package),
+                    setPackageSettingsCommand = new RelayCommandWithResult<EA.Package, bool>((package) => SetPackageSettingsCommand.Result = ExecuteSetPackageSettings(package),
                         (package) => CanExecuteSetPackageSettings(package));
                 return setPackageSettingsCommand;
+            }
+        }
+
+        private RelayCommandWithResult<bool> setLoginInformationCommand;
+        public RelayCommandWithResult<bool> SetLoginInformationCommand
+        {
+            get
+            {
+                if (setLoginInformationCommand == null)
+                    setLoginInformationCommand = new RelayCommandWithResult<bool>(() => SetLoginInformationCommand.Result = ExecuteSetLoginInformationCommand());
+                return setLoginInformationCommand;
             }
         }
         #endregion
@@ -111,7 +121,13 @@
         {
             ConnectedPackages.Add(new PackageModel() { GUID = Package.PackageGUID });
             mainModelService.SaveConnectedPackages(ConnectedPackages);
-            return true;
+
+            SetPackageSettingsCommand.Execute(Package);
+            if (SetPackageSettingsCommand.Result)
+                return true;
+
+            DisconnectPackageFromJiraCommand.Execute(Package);
+            return false; 
         }
 
         private bool ExecuteDisconnectPackageFromJiraCommand(EA.Package Package)
@@ -127,10 +143,8 @@
             return false; 
         }
 
-        private void ExecuteAbout()
-        {
+        private void ExecuteAbout() =>
             dialogService.ShowAboutDialog(new AboutViewModel(new AboutModelService(), dialogService));
-        }
 
         private bool CanExecuteSetPackageSettings(EA.Package Package)
         {
@@ -140,12 +154,19 @@
             return false;
         }
 
-        private void ExecuteSetPackageSettings(EA.Package Package)
-        {
-            var dlg = new PackageConnectionSettingsViewModel(new PackageConnectionSettingsModelService(Package), dialogService);
-            dlg.EditPackageConnectionSettings();
-        }
+        private bool ExecuteSetPackageSettings(EA.Package Package) =>
+            (new PackageConnectionSettingsViewModel(new PackageConnectionSettingsModelService(Package), dialogService)).EditPackageConnectionSettings();
 
+        private bool ExecuteSetLoginInformationCommand()
+        {
+            bool result; 
+
+            loginInformationViewModel.ReadData(EARepository);
+            result = dialogService.ShowSetLoginInformationDialog(loginInformationViewModel);
+            if (result)
+                loginInformationViewModel.SaveData(EARepository);
+            return result;
+        }
 
 
     }

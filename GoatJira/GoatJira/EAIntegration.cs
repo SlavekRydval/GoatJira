@@ -1,4 +1,5 @@
 ﻿using GoatJira.Helpers;
+using GoatJira.Model.LoginInformation;
 using GoatJira.ViewModel;
 using System;
 using System.Windows;
@@ -21,7 +22,7 @@ namespace GoatJira
             //MessageBox.Show("Append a debugger if needed.");
 #endif
 
-            mainViewModel = new MainViewModel(new Model.MainModel(), new Model.MainModelService(), new Helpers.DialogService())
+            mainViewModel = new MainViewModel(new Model.MainModel(), new Model.MainModelService(), new Helpers.DialogService(), new LoginInformationModelService())
             {
                 EARepository = Repository
             };
@@ -68,6 +69,7 @@ namespace GoatJira
         const string MDGConnectExternalProject = "&Connect External Project";
         const string MDGDisconnectExternalProject = "&Disconnect from GoatJira";
 
+        const string menuItemSetLoginInformation = "Set lo&gin information…";
 
         const string menuItemSetPackageConnectionSettings = "Set package JIRA connection settings…";
         const string menuItemShowWebsite = "&Show JIRA Main Web Site";
@@ -94,6 +96,7 @@ namespace GoatJira
                 case menuHeader:
                     string[] subMenus = {
                                             "PROJECT",
+                                            menuItemSetLoginInformation,
                                             menuItemShowWebsite,
                                             "-",
                                             "PACKAGE",
@@ -131,12 +134,9 @@ namespace GoatJira
                 case menuItemSetPackageConnectionSettings:
                     IsEnabled = vIsProjectOpen && vOT == EA.ObjectType.otPackage && mainViewModel.SetPackageSettingsCommand.CanExecute (Repository.GetContextObject());
                     break;
-
-
-
-
-
-
+                case menuItemSetLoginInformation:
+                    IsEnabled = vIsProjectOpen;
+                    break;
 
 
                 case menuItemShowWebsite:
@@ -168,7 +168,9 @@ namespace GoatJira
                 case menuItemSetPackageConnectionSettings:
                     mainViewModel.SetPackageSettingsCommand.Execute(Repository.GetContextObject());
                     break;
-
+                case menuItemSetLoginInformation:
+                    mainViewModel.SetLoginInformationCommand.Execute(null);
+                    break;
 
 
 
@@ -193,22 +195,7 @@ namespace GoatJira
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         #endregion
-
-
-
-
-
 
 
         #region MDG mandatory methods
@@ -228,7 +215,7 @@ namespace GoatJira
         ///disconnect to external projects independently of one another.
         ///The Add-In should therefore not store connection details in an Enterprise Architect repository. A suitable place to store
         ///such details would be:
-        ///SHGetFolderPath(..CSIDL_APPDATA..)\AddinName
+        ///         SHGetFolderPath(..CSIDL_APPDATA..)\AddinName
         ///The PackageGuid parameter is the same identifier as is required for most events relating to the MDG Add-In.Therefore
         ///it is recommended that the connection details be indexed using the PackageGuid value.
         ///The PackageID parameter is provided to aid fast retrieval of Package details from Enterprise Architect, should this be
@@ -311,25 +298,14 @@ namespace GoatJira
             }
         }
 
-        public int MDG_Merge(EA.Repository Repository, string PackageGuid, object SynchObjects, string SynchType, object ExportObjects, object ExportFiles, object ImportFiles, string IgnoreLocked, string Language)
-        {
-            return 1;
-        }
-
+        public int MDG_Merge(EA.Repository Repository, string PackageGuid, object SynchObjects, string SynchType, object ExportObjects, object ExportFiles, object ImportFiles, string IgnoreLocked, string Language) => 1;
         public string MDG_NewClass(EA.Repository Repository, string PackageGuid, string CodeID, string Language) => null;
-
         public int MDG_PostGenerate(EA.Repository Repository, string PackageGuid, string FilePath, string FileContents) => 0;
-
         public int MDG_PostMerge(EA.Repository Repository, string PackageGuid) => 0;
-
         public int MDG_PreGenerate(EA.Repository Repository, string PackageGuid) => 0;
-
         public int MDG_PreMerge(EA.Repository Repository, string PackageGuid) => 0;
-
         public void MDG_PreReverse(EA.Repository Repository, string PackageGuid, object FilePaths) { }
-
         public void MDG_RunExe(EA.Repository Repository, string PackageGuid) { }
-
         public int MDG_View(EA.Repository Repository, string PackageGuid, string CodeID) => 0;
         #endregion
     }

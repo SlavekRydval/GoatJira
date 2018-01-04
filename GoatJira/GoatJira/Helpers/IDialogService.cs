@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GoatJira.Helpers
+﻿namespace GoatJira.Helpers
 {
+    using GoatJira.ViewModel;
+
     interface IDialogService
     {
 
@@ -21,6 +17,8 @@ namespace GoatJira.Helpers
         /// <param name="DataContext"></param>
         /// <returns>true if data was changed</returns>
         bool ShowPackageConnectionSettingsDialog(object DataContext);
+
+        bool ShowSetLoginInformationDialog(LoginInformationViewModel DataContext);
 
 
     }
