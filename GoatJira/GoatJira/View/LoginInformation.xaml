@@ -18,7 +18,11 @@
             <viewmodel:LoginInformationViewModel x:Key="LoginInformationData"/>
         </ResourceDictionary>
     </Window.Resources>
-    
+
+    <Window.DataContext>
+        <StaticResourceExtension ResourceKey="LoginInformationData"/>
+    </Window.DataContext>
+
 
 
     <Grid Margin="3,3,10,3">

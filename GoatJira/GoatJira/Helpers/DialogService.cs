@@ -31,5 +31,9 @@
                 DataContext.LoginInformation.Password = LoginInformationDlg.txtPassword.Password;
             return result; 
         }
+
+        public void ShowJiraIssue(JiraIssueViewModel DataContext) =>
+            (new View.JiraIssue { DataContext = DataContext }).ShowDialog();
+
     }
 }

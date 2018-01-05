@@ -20,6 +20,7 @@
 
         bool ShowSetLoginInformationDialog(LoginInformationViewModel DataContext);
 
+        void ShowJiraIssue(JiraIssueViewModel DataContext);
 
     }
 }

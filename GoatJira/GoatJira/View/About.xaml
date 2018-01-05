@@ -16,6 +16,10 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    <Window.DataContext>
+        <StaticResourceExtension ResourceKey="AboutData"/>
+    </Window.DataContext>
+
     <Grid Margin="3,3,3,3">
         <Grid.Background>
             <ImageBrush ImageSource="/GoatJira;component/Resources/kozlik.png" AlignmentX="Right" AlignmentY="Top" Stretch="Uniform"/>

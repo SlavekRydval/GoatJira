@@ -1,0 +1,133 @@
+﻿<Window x:Class="GoatJira.View.JiraIssue"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GoatJira.View"
+        xmlns:viewmodel="clr-namespace:GoatJira.ViewModel"
+        mc:Ignorable="d"
+        Title="JIRA Issue" Height="444.543" Width="652.057" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <viewmodel:JiraIssueViewModel x:Key="JiraIssueData"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <StaticResourceExtension ResourceKey="JiraIssueData"/>
+    </Window.DataContext>
+
+
+
+    <Grid Name="gridIssue" Margin="3,3,3,3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Headline - Summary -->
+        <Grid Name="gridCaption" Margin="3,3,3,3" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Margin="3,3,3,3" Grid.Row="0" Grid.Column="0" Content="Summary:" FontWeight="Bold"/>
+            <TextBox Margin="3,3,3,3" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Path=JiraIssue.Summary, Mode=OneWay}" IsReadOnlyCaretVisible="True" IsReadOnly="True"/>
+
+        </Grid>
+
+        <!-- 3 columns information/editable elements -->
+        <Grid Name="grid3Columns" Margin="3,3,3,3" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Margin="1" x:Name="lblKey" Content="Key:" FontWeight="Bold"/>
+            <Label Grid.Row="0" Grid.Column="1" Margin="1" x:Name="lblKeyValue" Content="{Binding Path=JiraIssue.Key, Mode=OneWay}" FontWeight="Bold"/>
+
+            <Label Grid.Row="0" Grid.Column="2" Margin="1" Content="Type:" FontWeight="Bold"/>
+            <Label Grid.Row="0" Grid.Column="3" Margin="1" Content="{Binding Path=JiraIssue.Type, Mode=OneWay}"/>
+
+            <Label Grid.Row="0" Grid.Column="4" Margin="1" Content="Priority:" FontWeight="Bold"/>
+            <Label Grid.Row="0" Grid.Column="5" Margin="1" Content="{Binding Path=JiraIssue.Priority, Mode=OneWay}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Margin="1" Content="Status:" FontWeight="Bold"/>
+            <Label Grid.Row="1" Grid.Column="1" Margin="1" Content="{Binding Path=JiraIssue.Status, Mode=OneWay}"/>
+
+            <Label Grid.Row="1" Grid.Column="2" Margin="1" Content="Resolution:"  FontWeight="Bold"/>
+            <Label Grid.Row="1" Grid.Column="3" Margin="1" Content="{Binding Path=JiraIssue.Resolution, Mode=OneWay}"/>
+
+            <Label Grid.Row="1" Grid.Column="4" Margin="1" Content="Resolution Date:"  FontWeight="Bold"/>
+            <Label Grid.Row="1" Grid.Column="5" Margin="1" Content="{Binding Path=JiraIssue.ResolutionDate, Mode=OneWay}" />
+
+            <Label Grid.Row="2" Grid.Column="0" Margin="1" Content="Components:" FontWeight="Bold"/>
+            <Label Grid.Row="2" Grid.Column="1" Margin="1" Content="{Binding Path=JiraIssue.Components, Mode=OneWay}"/>
+
+            <Label Grid.Row="2" Grid.Column="2" Margin="1" Content="Labels:" FontWeight="Bold"/>
+            <Label Grid.Row="2" Grid.Column="3" Margin="1" Content="{Binding Path=JiraIssue.Labels, Mode=OneWay}"/>
+
+            <Label Grid.Row="2" Grid.Column="4" Margin="1" Content="Project:" FontWeight="Bold"/>
+            <Label Grid.Row="2" Grid.Column="5" Margin="1" Content="{Binding Path=JiraIssue.Project, Mode=OneWay}"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Margin="1" Content="Project type:" FontWeight="Bold"/>
+            <Label Grid.Row="3" Grid.Column="1" Margin="1" Content="{Binding Path=JiraIssue.ProjectType, Mode=OneWay}"/>
+
+            <Label Grid.Row="3" Grid.Column="2" Margin="1" Content="Assignee:" FontWeight="Bold"/>
+            <Label Grid.Row="3" Grid.Column="3" Margin="1" x:Name="lblAssignee" Content="{Binding Path=JiraIssue.Assignee, Mode=OneWay}"/>
+
+            <Label Grid.Row="3" Grid.Column="4" Margin="1" Content="Reporter:" FontWeight="Bold"/>
+            <Label Grid.Row="3" Grid.Column="5" Margin="1" x:Name="lblReporter" Content="{Binding Path=JiraIssue.Reporter, Mode=OneWay}"/>
+
+            <Label Grid.Row="4" Grid.Column="0" Margin="1" Content="Created at:" FontWeight="Bold"/>
+            <Label Grid.Row="4" Grid.Column="1" Margin="1" x:Name="lblCreatedAt" Content="{Binding Path=JiraIssue.CreatedAt, Mode=OneWay}"/>
+
+            <Label Grid.Row="5" Grid.Column="2" Margin="1" Content="Updated at:" FontWeight="Bold"/>
+            <Label Grid.Row="5" Grid.Column="3" Margin="1" x:Name="lblUpdatedAt" Content="{Binding Path=JiraIssue.UpdatedAt, Mode=OneWay}"/>
+
+            <Label Grid.Row="5" Grid.Column="4" Margin="1" Content="Due Date:" FontWeight="Bold"/>
+            <Label Grid.Row="5" Grid.Column="5" Margin="1" Content="{Binding Path=JiraIssue.DueDate, Mode=OneWay}"/>
+        </Grid>
+
+
+        <!-- 2 columns elements / editable elements -->
+        <Grid Name="grid2Columns" Margin="3,3,3,3" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="Description:"/>
+            <TextBox x:Name="textBlock" Grid.Row="0" Grid.Column="1" MinLines="10" MaxLines="10" Margin="3,3,3,3" Text="{Binding Path=JiraIssue.Description, Mode=OneWay}" VerticalAlignment="Center" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" IsReadOnlyCaretVisible="True" IsReadOnly="True"/>
+        </Grid>
+
+        <!-- buttons -->
+        <StackPanel Grid.Column="0" Grid.Row="3" Margin="3"  Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Padding="10,1" Margin="3" Content="Close" IsDefault="True" IsCancel="True"/>
+            <!--<Button Padding="10,1" Margin="3" Content="Open Issue in a Tab"/>-->
+            <!--<Button Padding="10,1" Margin="3,3,3,3" Content="Cancel" IsCancel="True"/>-->
+        </StackPanel>
+
+    </Grid>
+</Window>

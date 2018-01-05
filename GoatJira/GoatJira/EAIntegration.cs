@@ -137,13 +137,13 @@ namespace GoatJira
                 case menuItemSetLoginInformation:
                     IsEnabled = vIsProjectOpen;
                     break;
+                case menuItemReadRefreshIssues:
+                    IsEnabled = vIsProjectOpen && (vOT == EA.ObjectType.otPackage) && mainViewModel.RefreshIssuesCommand.CanExecute(Repository.GetContextObject());
+                    break;
 
 
                 case menuItemShowWebsite:
                     /////////                    IsEnabled = AddinViewModel.LoginCommand.CanExecute(null); // vIsProjectOpen
-                    IsEnabled = false;
-                    break;
-                case menuItemReadRefreshIssues:
                     IsEnabled = false;
                     break;
                 case menuItemNavigateIssueToWeb:
@@ -171,16 +171,14 @@ namespace GoatJira
                 case menuItemSetLoginInformation:
                     mainViewModel.SetLoginInformationCommand.Execute(null);
                     break;
-
-
+                case menuItemReadRefreshIssues:
+                    mainViewModel.RefreshIssuesCommand.Execute(Repository.GetContextObject());
+                    break;
 
 
 
                 case menuItemShowWebsite:
                     /////////                    EAJuraBridge.ShowWebSite(Repository);
-                    break;
-                case menuItemReadRefreshIssues:
-                    /////////                    EAJuraBridge.SynchronizePackageWithJira(Repository, Repository.GetContextObject());
                     break;
 
                 case menuItemNavigateIssueToWeb:

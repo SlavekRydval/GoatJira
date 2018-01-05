@@ -1,5 +1,6 @@
 ﻿namespace GoatJira.ViewModel
 {
+    using System;
     using GalaSoft.MvvmLight;
     using GoatJira.Helpers;
     using GoatJira.Model.PackageConnectionSettings;
@@ -41,8 +42,13 @@
             return result;
         }
 
-
-
-
+        public bool AreDataSet()
+        {
+            PackageConnectionSettings = PackageConnectionSettingsModelService.Read();
+            return (
+                    (PackageConnectionSettings.Type == PackageConnectionSettingsType.Jql && !String.IsNullOrWhiteSpace(PackageConnectionSettings.Jql))
+                    ||
+                    (PackageConnectionSettings.Type == PackageConnectionSettingsType.EpicsAndStories && !String.IsNullOrWhiteSpace(PackageConnectionSettings.EpicsAndStoriesJql)));
+        }
     }
 }

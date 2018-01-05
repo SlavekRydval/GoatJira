@@ -10,15 +10,19 @@
         >
    
         <!--DataContext="{Binding Source={StaticResource PackageConnectionSettingsData}}"-->
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <local:EnumMatchToBooleanConverter x:Key="enumConverter" />
             <viewmodel:PackageConnectionSettingsViewModel x:Key="PackageConnectionSettingsData"/>
         </ResourceDictionary>
     </Window.Resources>
-    
-    
+
+    <Window.DataContext>
+        <StaticResourceExtension ResourceKey="PackageConnectionSettingsData"/>
+    </Window.DataContext>
+
+
     <Grid Margin="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

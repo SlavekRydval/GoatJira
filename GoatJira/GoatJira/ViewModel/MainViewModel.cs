@@ -9,6 +9,7 @@
     using GoatJira.Model.LoginInformation;
     using GoatJira.Model.Package;
     using GoatJira.Model.PackageConnectionSettings;
+    using System;
     using System.Collections.ObjectModel;
 
     class MainViewModel: ViewModelBase
@@ -114,6 +115,17 @@
                 return setLoginInformationCommand;
             }
         }
+
+        private RelayCommand<EA.Package> refreshIssuesCommand;
+        public RelayCommand<EA.Package> RefreshIssuesCommand
+        {
+            get
+            {
+                if (refreshIssuesCommand == null)
+                    refreshIssuesCommand = new RelayCommand<EA.Package>((package) => ExecuteRefreshIssuesCommand(package), (package) => CanExecuteRefreshIssuesCommand(package));
+                return refreshIssuesCommand;
+            }
+        }
         #endregion
 
 
@@ -137,6 +149,11 @@
                 if (ConnectedPackage.GUID == Package.PackageGUID)
                 {
                     ConnectedPackages.Remove(ConnectedPackage);
+                    //setting off the namespace is due to EA is setting is as namespace
+                    //this works but user has to refresh the GUI :-( 
+                    //need to be solved
+                    Package.IsNamespace = false;
+                    Package.Update();
                     return true;
                 }
             }
@@ -168,6 +185,14 @@
             return result;
         }
 
+        private void ExecuteRefreshIssuesCommand(EA.Package Package)
+        {
+            throw new NotImplementedException();
+        }
 
+        private bool CanExecuteRefreshIssuesCommand(EA.Package Package)
+        {
+            return (new PackageConnectionSettingsViewModel(new PackageConnectionSettingsModelService(Package), dialogService)).AreDataSet();
+        }
     }
 }

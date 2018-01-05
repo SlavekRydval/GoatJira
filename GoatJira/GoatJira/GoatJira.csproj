@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Commands\RelayCommandWithResult.cs" />
     <Compile Include="Design\DesignAboutModelService.cs" />
+    <Compile Include="Design\DesignJiraIssueModelService.cs" />
     <Compile Include="Design\DesignLoginInformationModelService.cs" />
     <Compile Include="Design\DesignPackageConnectionSettingsModelService.cs" />
     <Compile Include="EAIntegration.cs" />
@@ -84,6 +85,9 @@
     <Compile Include="Model\About\AboutModelService.cs" />
     <Compile Include="Model\About\IAboutModelService.cs" />
     <Compile Include="Model\IMainModelService.cs" />
+    <Compile Include="Model\JiraIssue\IJiraIssueModelService.cs" />
+    <Compile Include="Model\JiraIssue\JiraIssueModel.cs" />
+    <Compile Include="Model\JiraIssue\JiraIssueModelService.cs" />
     <Compile Include="Model\LoginInformation\ILoginInformationModelService.cs" />
     <Compile Include="Model\LoginInformation\LoginInformationModel.cs" />
     <Compile Include="Model\LoginInformation\LoginInformationModelService.cs" />
@@ -101,6 +105,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AboutViewModel.cs" />
+    <Compile Include="ViewModel\JiraIssueViewModel.cs" />
     <Compile Include="ViewModel\LoginInformationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PackageConnectionSettingsViewModel.cs" />
@@ -108,6 +113,9 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EnumMatchToBooleanConverter.cs" />
+    <Compile Include="View\JiraIssue.xaml.cs">
+      <DependentUpon>JiraIssue.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoginInformation.xaml.cs">
       <DependentUpon>LoginInformation.xaml</DependentUpon>
     </Compile>
@@ -148,6 +156,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\JiraIssue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
