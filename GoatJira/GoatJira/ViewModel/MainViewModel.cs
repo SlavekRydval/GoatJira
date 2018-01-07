@@ -9,7 +9,7 @@
     using GoatJira.Model.LoginInformation;
     using GoatJira.Model.Package;
     using GoatJira.Model.PackageConnectionSettings;
-    using System;
+    using GoatJira.Services;
     using System.Collections.ObjectModel;
 
     class MainViewModel: ViewModelBase
@@ -187,7 +187,25 @@
 
         private void ExecuteRefreshIssuesCommand(EA.Package Package)
         {
-            throw new NotImplementedException();
+            //Now it is just testing the functionality, must be improved!!!
+            try
+            {
+                loginInformationViewModel.ReadData(EARepository);
+                var jiraConnection = new JiraConnection();
+                jiraConnection.Login(loginInformationViewModel);
+                SynchronizingService.SynchronizePackageWithJIRA(eaRepository, Package, new PackageConnectionSettingsModelService(Package), jiraConnection);
+            }
+            catch (System.Exception e)
+            {
+                string s = "";
+                do
+                {
+                    s += e.Message + "\n";
+                    e = e.InnerException;
+                } while (e != null);
+
+                dialogService.ShowError(s);
+            }
         }
 
         private bool CanExecuteRefreshIssuesCommand(EA.Package Package)

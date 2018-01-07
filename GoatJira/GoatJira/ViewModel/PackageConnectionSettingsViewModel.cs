@@ -10,8 +10,34 @@
         private IPackageConnectionSettingsModelService PackageConnectionSettingsModelService { get; }
         private IDialogService DialogService { get; }
 
-        public PackageConnectionSettingsModel PackageConnectionSettings { get; private set; }
+        public PackageConnectionSettingsModel PackageConnectionSettings { get; private set; } = null; 
 
+        /// <summary>
+        /// Jql that return desired issues from JIRA
+        /// </summary>
+        public string Jql
+        {
+            get
+            {
+                if (PackageConnectionSettings == null)
+                    PackageConnectionSettings = PackageConnectionSettingsModelService.Read();
+
+                switch (PackageConnectionSettings.Type)
+                {
+                    case PackageConnectionSettingsType.Jql:
+                        return PackageConnectionSettings.Jql;
+                    case PackageConnectionSettingsType.EpicsAndStories:
+                        if (String.IsNullOrWhiteSpace(PackageConnectionSettings.EpicsAndStoriesJql))
+                            return "issuetype = Epic";
+                        else
+                            return "issuetype = Epic AND (" + PackageConnectionSettings.EpicsAndStoriesJql + ")";
+                    case PackageConnectionSettingsType.UserSearch:
+                        throw new NotImplementedException("UserSearch not implemented yet.");
+                    default:
+                        throw new NotImplementedException("Probably new type of query. Sorry, not implemented yet.");
+                }
+            }
+        }
 
         public PackageConnectionSettingsViewModel() : this(
             IsInDesignModeStatic ? (IPackageConnectionSettingsModelService)new Design.DesignPackageConnectionSettingsModelService() : new PackageConnectionSettingsModelService(null), 

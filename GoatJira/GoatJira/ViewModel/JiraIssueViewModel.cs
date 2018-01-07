@@ -13,7 +13,7 @@ namespace GoatJira.ViewModel
 
         public JiraIssueViewModel(): this 
             (
-                IsInDesignModeStatic ? (IJiraIssueModelService)new Design.DesignJiraIssueModelService() : new JiraIssueModelService(), 
+                IsInDesignModeStatic ? (IJiraIssueModelService)new Design.DesignJiraIssueModelService() : new JiraIssueModelService(null), 
                 new DialogService()
             )
         {
@@ -27,6 +27,7 @@ namespace GoatJira.ViewModel
         {
             jiraIssueModelService = JiraIssueModelService;
             dialogService = DialogService;
+            JiraIssue = jiraIssueModelService.Read();
         }
 
 

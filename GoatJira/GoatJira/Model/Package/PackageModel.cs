@@ -1,5 +1,4 @@
-﻿
-namespace GoatJira.Model.Package
+﻿namespace GoatJira.Model.Package
 {
     using GalaSoft.MvvmLight;
     using GoatJira.Model.PackageConnectionSettings;

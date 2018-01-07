@@ -66,7 +66,7 @@ namespace GoatJira.Properties {
         ///			&lt;Documentation id=&quot;AAD8178D-1&quot; name=&quot;Goat Jira&quot; version=&quot;1.0&quot; notes=&quot;Goat Jira&quot;/&gt;
         ///			&lt;Content&gt;
         ///				&lt;Stereotypes&gt;
-        ///					&lt;Stereotype name=&quot;JiraBug&quot; metatype=&quot;JiraBug&quot; notes=&quot;&quot; cx=&quot;0&quot; cy=&quot;0&quot; bgcolor=&quot;-1 [rest of string was truncated]&quot;;.
+        ///					&lt;Stereotype name=&quot;GoatJira&quot; notes=&quot;Query settings for a Package&quot; cx=&quot;0&quot; cy=&quot;0&quot; b [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GoatJiraMDG {
             get {
