@@ -1,5 +1,6 @@
 ﻿using GoatJira.Helpers;
 using GoatJira.Model.LoginInformation;
+using GoatJira.Services;
 using GoatJira.ViewModel;
 using System;
 using System.Windows;
@@ -194,6 +195,27 @@ namespace GoatJira
         }
 
         #endregion
+
+
+        /// <summary>
+        /// EA_OnContextItemDoubleClicked notifies Add-Ins that the user has double-clicked the item currently in context.
+        /// This event occurs when a user has double-clicked (or pressed Enter) on the item in context, either in a diagram or in the Project Browser.
+        /// </summary>
+        /// <param name="Repository">An EA.Repository object representing the currently open Enterprise Architect model.</param>
+        /// <param name="GUID">Contains the GUID of the new context item.</param>
+        /// <param name="ObjectType">Specifies the type of the new context item.</param>
+        /// <returns></returns>
+        public bool EA_OnContextItemDoubleClicked(EA.Repository Repository, string GUID, EA.ObjectType ObjectType)
+        {
+            if ((ObjectType == EA.ObjectType.otElement) && EAGoatJira.IsElementJiraMetatype (Repository.GetElementByGuid(GUID)))
+            {
+                mainViewModel.ShowIssueCommand.Execute(Repository.GetElementByGuid(GUID));
+                return true; 
+            }
+            return false; 
+        }
+
+
 
 
         #region MDG mandatory methods

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using System.Windows.Data;
-
-namespace GoatJira.View
+﻿namespace GoatJira.View.Convertors
 {
+    using System;
+    using System.Globalization;
+    using System.Windows.Data;
+
     public class EnumMatchToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType,

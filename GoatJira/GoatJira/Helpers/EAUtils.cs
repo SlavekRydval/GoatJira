@@ -28,14 +28,23 @@
         }
 
 
-        public static void WriteTaggedValue(EA.Collection Collection, string TaggedValueName, string Value)
+        public static void WriteTaggedValue(EA.Collection Collection, string TaggedValueName, string Value, bool WriteValueToNotes = false)
         {
             EA.TaggedValue tv = Collection.GetByName(TaggedValueName);
             if (tv == null)
                 tv = Collection.AddNew(TaggedValueName, "TaggedValue");
-            tv.Value = Value;
+
+            if (WriteValueToNotes)
+                tv.Notes = Value;
+            else
+                tv.Value = Value;
             tv.Update();
         }
+
+        public static void WriteTaggedValue(EA.Element element, string TaggedValueName, string Value, bool WriteValueToNotes = false)
+            => WriteTaggedValue(element.TaggedValues, TaggedValueName, Value, WriteValueToNotes);
+
+
 
         /// <summary>
         /// Temporary function solving error in Sparx EA
@@ -69,6 +78,39 @@
             }
             return vOT;
         }
+
+        /// <summary>
+        /// Creates new package in ParentPackage. If ForceCreation is false and package with the same Name exists, this package is returned insted of creation of a new one.
+        /// </summary>
+        /// <param name="ParentPackage">Parent package where the new package should be created.</param>
+        /// <param name="Name">Name of a new package.</param>
+        /// <param name="ForceCreation">If true, new package is always created. 
+        /// If false and package with the same Name in ParentPackage already exists, this package is returned insted of creation of a new one.</param>
+        /// <returns>Required package</returns>
+        public static EA.Package CreatePackage (EA.Package ParentPackage, string Name, bool ForceCreation)
+        {
+            if (!ForceCreation)
+                foreach (EA.Package Subpackage in ParentPackage.Packages)
+                    if (Subpackage.Name == Name)
+                        return Subpackage;
+
+            EA.Package result = ParentPackage.Packages.AddNew(Name, "Package");
+            result.Update();
+            ParentPackage.Packages.Refresh();
+            return result;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

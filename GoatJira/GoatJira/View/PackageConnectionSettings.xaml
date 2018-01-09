@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GoatJira.View"
+        xmlns:convertors="clr-namespace:GoatJira.View.Convertors"
         xmlns:viewmodel="clr-namespace:GoatJira.ViewModel"
         mc:Ignorable="d"
         Title="Package Connection Settings" Height="259.226" Width="417" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
@@ -13,7 +14,7 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <local:EnumMatchToBooleanConverter x:Key="enumConverter" />
+            <convertors:EnumMatchToBooleanConverter x:Key="enumConverter" />
             <viewmodel:PackageConnectionSettingsViewModel x:Key="PackageConnectionSettingsData"/>
         </ResourceDictionary>
     </Window.Resources>

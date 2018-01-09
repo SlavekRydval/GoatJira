@@ -6,10 +6,12 @@
     using GoatJira.Helpers;
     using GoatJira.Model;
     using GoatJira.Model.About;
+    using GoatJira.Model.Jira.JiraIssue;
     using GoatJira.Model.LoginInformation;
     using GoatJira.Model.Package;
     using GoatJira.Model.PackageConnectionSettings;
     using GoatJira.Services;
+    using System;
     using System.Collections.ObjectModel;
 
     class MainViewModel: ViewModelBase
@@ -126,6 +128,17 @@
                 return refreshIssuesCommand;
             }
         }
+
+        private RelayCommand<EA.Element> showIssueCommand;
+        public RelayCommand<EA.Element> ShowIssueCommand
+        {
+            get
+            {
+                if (showIssueCommand == null)
+                    showIssueCommand = new RelayCommand<EA.Element>((element) => ExecuteShowIssueCommand(element));
+                return showIssueCommand;
+            }
+        }
         #endregion
 
 
@@ -197,20 +210,40 @@
             }
             catch (System.Exception e)
             {
-                string s = "";
-                do
-                {
-                    s += e.Message + "\n";
-                    e = e.InnerException;
-                } while (e != null);
-
-                dialogService.ShowError(s);
+                dialogService.ShowError(Utils.ExceptionString(e));
             }
         }
 
-        private bool CanExecuteRefreshIssuesCommand(EA.Package Package)
+        private bool CanExecuteRefreshIssuesCommand(EA.Package Package) =>
+         (new PackageConnectionSettingsViewModel(new PackageConnectionSettingsModelService(Package), dialogService)).AreDataSet();
+        
+
+        private void ExecuteShowIssueCommand(EA.Element Element)
         {
-            return (new PackageConnectionSettingsViewModel(new PackageConnectionSettingsModelService(Package), dialogService)).AreDataSet();
+            try
+            {
+                string JsonIssue = ((EA.TaggedValue)Element.TaggedValues.GetByName(EAGoatJira.TagValueNameData)).Notes;
+                try
+                {
+                    JiraIssueViewModel JiraIssue = new JiraIssueViewModel(new JSONJiraIssueModelService(JsonIssue), dialogService);
+                    try
+                    {
+                        JiraIssue.ShowIssue();
+                    }
+                    catch (Exception e)
+                    {
+                        dialogService.ShowError($"Cannot show Jira Issue Dialog.\n{Utils.ExceptionString(e)}");
+                    }
+                }
+                catch (Exception e)
+                {
+                    dialogService.ShowError($"Cannot read issue data. Probably broken data in tagged value {EAGoatJira.TagValueNameData}\n{Utils.ExceptionString(e)}");
+                }
+            }
+            catch (Exception e)
+            {
+                dialogService.ShowError($"Cannot read the tagged value {EAGoatJira.TagValueNameData}\n{Utils.ExceptionString(e)}");
+            }
         }
     }
 }

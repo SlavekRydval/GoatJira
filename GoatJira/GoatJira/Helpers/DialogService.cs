@@ -32,8 +32,8 @@
             return result; 
         }
 
-        public void ShowJiraIssue(JiraIssueViewModel DataContext) =>
-            (new View.JiraIssue { DataContext = DataContext }).ShowDialog();
+        public void ShowJiraIssue(JiraIssueViewModel JiraIssueDataContext) =>
+            (new View.JiraIssue { DataContext = JiraIssueDataContext }).ShowDialog();
 
     }
 }

@@ -3,11 +3,11 @@
     using System;
     using Atlassian.Jira;
 
-    class JiraIssueModelService : IJiraIssueModelService
+    class AtlassianJiraIssueModelService : IJiraIssueModelService
     {
         private readonly Issue issue;
 
-        public JiraIssueModelService(Issue Issue)
+        public AtlassianJiraIssueModelService(Issue Issue)
         {
             issue = Issue;
         }
@@ -26,9 +26,7 @@
                 Reporter = issue.Reporter,
                 CreatedAt = issue.Created,
                 UpdatedAt = issue.Updated,
-                //Space is due to error in WPF -- if null or empty string is assigned, MinLines in TextBox is not applied
-                //TODO: This should be done in a converter, not here!!! Change it!!!
-                Description = String.IsNullOrEmpty(issue.Description) ? " " : issue.Description,
+                Description = issue.Description,
                 Summary = issue.Summary,
                 Status = issue.Status.Name,
                 Resolution = issue.Resolution?.Name,

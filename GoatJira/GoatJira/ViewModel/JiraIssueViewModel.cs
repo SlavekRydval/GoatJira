@@ -13,7 +13,7 @@
 
         public JiraIssueViewModel(): this 
             (
-                IsInDesignModeStatic ? (IJiraIssueModelService)new Design.DesignJiraIssueModelService() : new JiraIssueModelService(null), 
+                IsInDesignModeStatic ? (IJiraIssueModelService)new Design.DesignJiraIssueModelService() : null, 
                 new DialogService()
             )
         {
@@ -27,10 +27,11 @@
         {
             jiraIssueModelService = JiraIssueModelService;
             dialogService = DialogService;
-            JiraIssue = jiraIssueModelService.Read();
+            JiraIssue = jiraIssueModelService?.Read();
         }
 
-
+        public void ShowIssue() =>
+            dialogService.ShowJiraIssue(this);
 
 
     }

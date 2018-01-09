@@ -92,16 +92,18 @@
     <Compile Include="Helpers\DialogService.cs" />
     <Compile Include="Helpers\EAUtils.cs" />
     <Compile Include="Helpers\IDialogService.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Model\About\AboutModel.cs" />
     <Compile Include="Model\About\AboutModelService.cs" />
     <Compile Include="Model\About\IAboutModelService.cs" />
     <Compile Include="Model\IMainModelService.cs" />
     <Compile Include="Model\Jira\JiraIssue\IJiraIssueModelService.cs" />
     <Compile Include="Model\Jira\JiraIssue\JiraIssueModel.cs" />
-    <Compile Include="Model\Jira\JiraIssue\JiraIssueModelService.cs" />
+    <Compile Include="Model\Jira\JiraIssue\AtlassianJiraIssueModelService.cs" />
     <Compile Include="Model\Jira\JiraIssueType\IJiraIssueTypeModelService.cs" />
     <Compile Include="Model\Jira\JiraIssueType\JiraIssueTypeModel.cs" />
     <Compile Include="Model\Jira\JiraIssueType\JiraIssueTypeModelService.cs" />
+    <Compile Include="Model\Jira\JiraIssue\JSONJiraIssueModelService.cs" />
     <Compile Include="Model\Jira\JiraPriority\IJiraPriorityModelService.cs" />
     <Compile Include="Model\Jira\JiraPriority\JiraPriorityModel.cs" />
     <Compile Include="Model\Jira\JiraPriority\JiraPriorityModelService.cs" />
@@ -121,6 +123,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\EAGoatJira.cs" />
     <Compile Include="Services\JiraConnection.cs" />
     <Compile Include="Services\SynchronizingService.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
@@ -131,10 +134,11 @@
     <Compile Include="View\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EnumMatchToBooleanConverter.cs" />
+    <Compile Include="View\Convertors\EnumMatchToBooleanConverter.cs" />
     <Compile Include="View\JiraIssue.xaml.cs">
       <DependentUpon>JiraIssue.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Convertors\JiraIssueDescriptionConverter.cs" />
     <Compile Include="View\LoginInformation.xaml.cs">
       <DependentUpon>LoginInformation.xaml</DependentUpon>
     </Compile>

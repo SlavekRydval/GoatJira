@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GoatJira.View"
+        xmlns:convertors="clr-namespace:GoatJira.View.Convertors"
         xmlns:viewmodel="clr-namespace:GoatJira.ViewModel"
         mc:Ignorable="d"
-        Title="JIRA Issue" Height="444.543" Width="652.057" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" WindowStartupLocation="CenterScreen">
+        Title="JIRA Issue" Height="444.543" Width="652.057" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" MinHeight="444" MinWidth="650">
 
     <Window.Resources>
         <ResourceDictionary>
             <viewmodel:JiraIssueViewModel x:Key="JiraIssueData"/>
+            <convertors:JiraIssueDescriptionConverter x:Key="DescriptionConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -119,7 +121,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="Description:"/>
-            <TextBox x:Name="textBlock" Grid.Row="0" Grid.Column="1" MinLines="10" MaxLines="10" Margin="3,3,3,3" Text="{Binding Path=JiraIssue.Description, Mode=OneWay}" VerticalAlignment="Center" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" IsReadOnlyCaretVisible="True" IsReadOnly="True"/>
+            <TextBox x:Name="textBlock" Grid.Row="0" Grid.Column="1" MinLines="10" MaxLines="10" Margin="3,3,3,3" Text="{Binding Path=JiraIssue.Description, Mode=OneWay, Converter={StaticResource DescriptionConverter}}" VerticalAlignment="Center" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" IsReadOnlyCaretVisible="True" IsReadOnly="True"/>
         </Grid>
 
         <!-- buttons -->
