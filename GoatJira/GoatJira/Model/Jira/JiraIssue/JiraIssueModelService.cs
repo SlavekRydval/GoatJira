@@ -66,7 +66,10 @@
 
         private string GetLabels(Issue issue)
         {
-            return String.Concat(issue.GetLabelsAsync().Result);
+            string result = "";
+            foreach (var Label in issue.Labels)
+                result += result == "" ? Label : ", "+Label;
+            return result;
         }
 
 
