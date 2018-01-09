@@ -22,12 +22,23 @@ namespace GoatJira
 #if DEBUG
             //MessageBox.Show("Append a debugger if needed.");
 #endif
-
-            mainViewModel = new MainViewModel(new Model.MainModel(), new Model.MainModelService(), new Helpers.DialogService(), new LoginInformationModelService())
+            try
             {
-                EARepository = Repository
-            };
-            return "MDG";
+                mainViewModel = new MainViewModel(new Model.MainModel(), new Model.MainModelService(), new DialogService(), new LoginInformationModelService())
+                {
+                    EARepository = Repository
+                };
+#if MDG
+                return "MDG";
+#else
+                return "";
+#endif
+            }
+            catch (Exception e)
+            {
+                (new DialogService()).ShowError(e.Message);
+                return "";
+            }
         }
 
         /// <summary>
@@ -60,12 +71,11 @@ namespace GoatJira
         public void EA_FileOpen(EA.Repository Repository) => mainViewModel.EARepository = Repository;
 
 
-        #region Menu Definition
+#region Menu Definition
         /// 
         /// Menu items
         /// 
         const string menuHeader = "-JIRA Connection via GOAT";
-
 
         const string MDGConnectExternalProject = "&Connect External Project";
         const string MDGDisconnectExternalProject = "&Disconnect from GoatJira";
@@ -194,7 +204,7 @@ namespace GoatJira
             }
         }
 
-        #endregion
+#endregion
 
 
         /// <summary>
@@ -212,18 +222,20 @@ namespace GoatJira
                 mainViewModel.ShowIssueCommand.Execute(Repository.GetElementByGuid(GUID));
                 return true; 
             }
+
+            if ((ObjectType == EA.ObjectType.otPackage) && (Repository.GetPackageByGuid(GUID).Element.Stereotype == EAGoatJira.PackageStereotypeName))
+            {
+                mainViewModel.SetPackageSettingsCommand.Execute(Repository.GetPackageByGuid(GUID));
+                return true;
+            }
+
             return false; 
         }
 
 
 
 
-        #region MDG mandatory methods
-        ///-----------------
-        ///MGD
-        ///-----------------
-        ///
-
+#region MDG mandatory methods
         public void MDG_BuildProject(EA.Repository Repository, EA.Package Package) { }
 
         /// <summary>
@@ -279,10 +291,18 @@ namespace GoatJira
         /// <returns>Returns an array of GUID strings representing individual Enterprise Architect Packages.</returns>
         public string[] MDG_GetConnectedPackages(EA.Repository Repository)
         {
-            string[] result = new string[mainViewModel.ConnectedPackages.Count];
-            for (int i = 0; i < mainViewModel.ConnectedPackages.Count; i++)
-                result[i] = mainViewModel.ConnectedPackages[i].GUID;
-            return result;
+            try
+            {
+                string[] result = new string[mainViewModel.ConnectedPackages.Count];
+                for (int i = 0; i < mainViewModel.ConnectedPackages.Count; i++)
+                    result[i] = mainViewModel.ConnectedPackages[i].GUID;
+                return result;
+            }
+            catch (Exception e)
+            {
+                (new DialogService()).ShowError(e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -305,16 +325,24 @@ namespace GoatJira
         /// <returns></returns>
         public object MDG_GetProperty(EA.Repository Repository, string PackageGuid, string PropertyName)
         {
-            switch (PropertyName)
+            try
             {
-                //case "IconID": return System.Reflection.Assembly.GetExecutingAssembly().Location + "#treeview.ico";
-                //case "IconID": return @"c:\Slávek\Projects\Jura\Debug\Resources.dll#treeview.ico";
-//                case "IconID": return @"c:\Users\Slávek\ResEdit Projects\GoatJiraResources\GoatJiraResources.exe#100";
-                case "IconID": return System.Reflection.Assembly.GetExecutingAssembly().Location + "#IcoTreeView";
-                //case "IconID": return @"e:\Projects\Visual Studio Solutions\Pokusy\Resources\Debug\Resources.dll#101";
-                case "Language": return "";
-                case "HiddenMenus": return EA.MDGMenus.mgBuildProject | EA.MDGMenus.mgMerge | EA.MDGMenus.mgRun;
-                default: return null;
+                switch (PropertyName)
+                {
+                    //case "IconID": return System.Reflection.Assembly.GetExecutingAssembly().Location + "#treeview.ico";
+                    //case "IconID": return @"c:\Slávek\Projects\Jura\Debug\Resources.dll#treeview.ico";
+                    //                case "IconID": return @"c:\Users\Slávek\ResEdit Projects\GoatJiraResources\GoatJiraResources.exe#100";
+                    case "IconID": return System.Reflection.Assembly.GetExecutingAssembly().Location + "#IcoTreeView";
+                    //case "IconID": return @"e:\Projects\Visual Studio Solutions\Pokusy\Resources\Debug\Resources.dll#101";
+                    case "Language": return "";
+                    case "HiddenMenus": return EA.MDGMenus.mgBuildProject | EA.MDGMenus.mgMerge | EA.MDGMenus.mgRun;
+                    default: return null;
+                }
+            }
+            catch (Exception e)
+            {
+                (new DialogService()).ShowError(e.Message);
+                return null;
             }
         }
 
@@ -327,6 +355,6 @@ namespace GoatJira
         public void MDG_PreReverse(EA.Repository Repository, string PackageGuid, object FilePaths) { }
         public void MDG_RunExe(EA.Repository Repository, string PackageGuid) { }
         public int MDG_View(EA.Repository Repository, string PackageGuid, string CodeID) => 0;
-        #endregion
+#endregion
     }
 }

@@ -32,6 +32,16 @@
         //
         public const string JiraOutputWindowName = "Jura";
 
+        //taggs for GoatJira stereotyp assignable to Package
+        public const string PackageStereotypeName = "GoatJira";
+#if MDG
+        public const string TagValueNamePackageJql = "GoatJira_QueryDefinition";
+        public const string TagValueNamePackageType = "GoatJira_QueryType";
+#else
+        public const string TagValueNamePackageJql = "Jql";
+        public const string TagValueNamePackageType = "QueryType";
+#endif
+
 
         /// <summary>
         /// According to issue type of an issue as a parameter returns metatype name of the element in EA

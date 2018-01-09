@@ -11,7 +11,7 @@
     class SynchronizingService
     {
 
-        public static void SynchronizePackageWithJIRA(EA.Repository Repository, EA.Package Package, IPackageConnectionSettingsModelService PackageConnectionSettingsModelService, JiraConnection JiraConnection)
+        public static void SynchronizePackageWithJIRA(EA.Repository Repository, EA.Package Package, PackageConnectionSettingsViewModel PackageConnectionSettings, JiraConnection JiraConnection)
         {
             //Steps:
             //      1. User must be able to login to JIRA -- must ensure caller
@@ -24,17 +24,16 @@
             Repository.ClearOutput(EAGoatJira.JiraOutputWindowName);
             Repository.WriteOutput(EAGoatJira.JiraOutputWindowName, "Reading data...", 0);
 
-            var pcs = PackageConnectionSettingsModelService.Read();
-            string UserJql = pcs.Jql;
+            PackageConnectionSettings.Refresh();
 
             Dictionary<string, EA.Element> IssuesInEA = ReadIssuesFromEA(Repository, Package.Elements);
 
-            var issues = JiraConnection.GetJiraIssues(UserJql);
+            var issues = JiraConnection.GetJiraIssues(PackageConnectionSettings.Jql);
             foreach (var issue in issues)
             {
                 EA.Element EAElementForIssue = SynchronizeItem(issue, Repository, Package, null, IssuesInEA);
 
-                if (pcs.Type == PackageConnectionSettingsType.EpicsAndStories)
+                if (PackageConnectionSettings.PackageConnectionSettings.Type == PackageConnectionSettingsType.EpicsAndStories)
                 {
                     var epicissues = JiraConnection.GetJiraIssues($"\"Epic Link\" = {issue.Key}");
                     foreach (var epicissue in epicissues)

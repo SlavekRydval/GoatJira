@@ -1,6 +1,7 @@
 ﻿namespace GoatJira.Model.PackageConnectionSettings
 {
     using GoatJira.Helpers;
+    using GoatJira.Services;
     using System;
 
     class PackageConnectionSettingsModelService : IPackageConnectionSettingsModelService
@@ -12,20 +13,17 @@
             package = Package;
         }
 
-        private const string JIRAQueryTypeTaggedValueDefName = "JIRA_QueryDefinition";
-        private const string JIRAQueryTypeTaggedValueTypeName = "JIRA_QueryType";
-
         public PackageConnectionSettingsModel Read()
         {
             PackageConnectionSettingsModel result = new PackageConnectionSettingsModel();
             PackageConnectionSettingsType type;
 
-            if (Enum.TryParse(EAUtils.ReadTaggedValue(package.Element.TaggedValues, JIRAQueryTypeTaggedValueTypeName, ""), out type))
+            if (Enum.TryParse(EAUtils.ReadTaggedValue(package.Element.TaggedValues, EAGoatJira.TagValueNamePackageType, ""), out type))
                 result.Type = type;
             else
                 result.Type = PackageConnectionSettingsType.Jql;
 
-            string QueryValue = EAUtils.ReadTaggedValue(package.Element.TaggedValues, JIRAQueryTypeTaggedValueDefName, "");
+            string QueryValue = EAUtils.ReadTaggedValue(package.Element.TaggedValues, EAGoatJira.TagValueNamePackageJql, "");
 
             result.Jql = result.EpicsAndStoriesJql = result.UserSavedSearch = "";
             switch (result.Type)
@@ -63,8 +61,12 @@
                     throw new NotImplementedException();
             }
 
-            EAUtils.WriteTaggedValue(package.Element.TaggedValues, JIRAQueryTypeTaggedValueDefName, QueryValue);
-            EAUtils.WriteTaggedValue(package.Element.TaggedValues, JIRAQueryTypeTaggedValueTypeName, PackageConnectionSettings.Type.ToString());
+            package.Element.Stereotype = EAGoatJira.PackageStereotypeName;
+            package.Element.Update();
+            package.Update();
+            package.Element.TaggedValues.Refresh();
+            EAUtils.WriteTaggedValue(package.Element.TaggedValues, EAGoatJira.TagValueNamePackageJql, QueryValue);
+            EAUtils.WriteTaggedValue(package.Element.TaggedValues, EAGoatJira.TagValueNamePackageType, PackageConnectionSettings.Type.ToString());
             package.Update();
         }
     }

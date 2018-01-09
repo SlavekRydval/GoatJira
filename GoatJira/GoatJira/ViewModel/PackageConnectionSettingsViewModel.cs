@@ -61,7 +61,7 @@
         public bool EditPackageConnectionSettings()
         {
             bool result;
-            PackageConnectionSettings = PackageConnectionSettingsModelService.Read();
+            Refresh();
             result = DialogService.ShowPackageConnectionSettingsDialog(this);
             if (result)
                 PackageConnectionSettingsModelService.Save(PackageConnectionSettings);
@@ -70,11 +70,14 @@
 
         public bool AreDataSet()
         {
-            PackageConnectionSettings = PackageConnectionSettingsModelService.Read();
+            Refresh();
             return (
                     (PackageConnectionSettings.Type == PackageConnectionSettingsType.Jql && !String.IsNullOrWhiteSpace(PackageConnectionSettings.Jql))
                     ||
-                    (PackageConnectionSettings.Type == PackageConnectionSettingsType.EpicsAndStories && !String.IsNullOrWhiteSpace(PackageConnectionSettings.EpicsAndStoriesJql)));
+                    (PackageConnectionSettings.Type == PackageConnectionSettingsType.EpicsAndStories));
         }
+
+        public void Refresh() =>
+            PackageConnectionSettings = PackageConnectionSettingsModelService.Read();
     }
 }

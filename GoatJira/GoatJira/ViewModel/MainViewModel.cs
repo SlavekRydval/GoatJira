@@ -149,7 +149,10 @@
 
             SetPackageSettingsCommand.Execute(Package);
             if (SetPackageSettingsCommand.Result)
+            {
+                Package.Element.Refresh();
                 return true;
+            }
 
             DisconnectPackageFromJiraCommand.Execute(Package);
             return false; 
@@ -166,7 +169,10 @@
                     //this works but user has to refresh the GUI :-( 
                     //need to be solved
                     Package.IsNamespace = false;
+                    //Package.Element.Stereotype = "";
+                    //Package.Element.Update();
                     Package.Update();
+                    //Package.Element.Refresh();
                     return true;
                 }
             }
@@ -178,10 +184,14 @@
 
         private bool CanExecuteSetPackageSettings(EA.Package Package)
         {
+#if MDG
             foreach (var ConnectedPackage in ConnectedPackages)
                 if (ConnectedPackage.GUID == Package.PackageGUID)
                     return true;
             return false;
+#else
+            return Package != null;
+#endif
         }
 
         private bool ExecuteSetPackageSettings(EA.Package Package) =>
@@ -206,9 +216,9 @@
                 loginInformationViewModel.ReadData(EARepository);
                 var jiraConnection = new JiraConnection();
                 jiraConnection.Login(loginInformationViewModel);
-                SynchronizingService.SynchronizePackageWithJIRA(eaRepository, Package, new PackageConnectionSettingsModelService(Package), jiraConnection);
+                SynchronizingService.SynchronizePackageWithJIRA(eaRepository, Package, new PackageConnectionSettingsViewModel (new PackageConnectionSettingsModelService(Package), dialogService), jiraConnection);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 dialogService.ShowError(Utils.ExceptionString(e));
             }
