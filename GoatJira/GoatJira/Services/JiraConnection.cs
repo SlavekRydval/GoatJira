@@ -9,8 +9,8 @@
     class JiraConnection
     {
         //properties
-        public List<JiraPriority> Priorities { get; protected set; } = new List<JiraPriority>();
-        public Dictionary<string, JiraIssueType> Types { get; protected set; } = new Dictionary<string, JiraIssueType>();
+        public List<JiraPriorityModel> Priorities { get; protected set; } = new List<JiraPriorityModel>();
+        public Dictionary<string, JiraIssueTypeModel> Types { get; protected set; } = new Dictionary<string, JiraIssueTypeModel>();
         public bool isConnected { get; protected set; } = false;
 
         //variables
@@ -20,11 +20,11 @@
         {
             Types.Clear();
             foreach (var issueType in jira.IssueTypes.GetIssueTypesAsync().Result)
-                Types.Add(issueType.Id, new JiraIssueType(issueType));
+                Types.Add(issueType.Id, new JiraIssueTypeModelService(issueType).Read());
 
             Priorities.Clear();
             foreach (var prio in jira.Priorities.GetPrioritiesAsync().Result)
-                Priorities.Add(new JiraPriority(prio));
+                Priorities.Add(new JiraPriorityModelService(prio).Read());
         }
 
         public void Login(LoginInformationViewModel LoginInformation,  bool ForceNewLogin = false)

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace GoatJira.Model.JiraIssue
+namespace GoatJira.Model.Jira.JiraIssue
 {
     class JiraIssueModel : ObservableObject
     {

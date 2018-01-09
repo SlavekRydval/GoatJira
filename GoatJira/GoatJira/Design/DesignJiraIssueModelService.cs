@@ -1,4 +1,4 @@
-﻿using GoatJira.Model.JiraIssue;
+﻿using GoatJira.Model.Jira.JiraIssue;
 using System;
 
 namespace GoatJira.Design

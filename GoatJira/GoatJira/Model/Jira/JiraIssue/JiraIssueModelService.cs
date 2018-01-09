@@ -1,4 +1,4 @@
-﻿namespace GoatJira.Model.JiraIssue
+﻿namespace GoatJira.Model.Jira.JiraIssue
 {
     using System;
     using Atlassian.Jira;

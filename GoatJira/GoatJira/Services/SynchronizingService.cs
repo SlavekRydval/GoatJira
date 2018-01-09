@@ -1,6 +1,6 @@
 ﻿namespace GoatJira.Services
 {
-    using GoatJira.Model.JiraIssue;
+    using GoatJira.Model.Jira.JiraIssue;
     using GoatJira.Model.PackageConnectionSettings;
     using GoatJira.ViewModel;
     using Newtonsoft.Json;

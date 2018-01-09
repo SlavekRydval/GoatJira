@@ -1,9 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using GoatJira.Helpers;
-using GoatJira.Model.JiraIssue;
-
-namespace GoatJira.ViewModel
+﻿namespace GoatJira.ViewModel
 {
+    using GalaSoft.MvvmLight;
+    using GoatJira.Helpers;
+    using GoatJira.Model.Jira.JiraIssue;
+
     class JiraIssueViewModel : ViewModelBase
     {
         private readonly IJiraIssueModelService jiraIssueModelService;
