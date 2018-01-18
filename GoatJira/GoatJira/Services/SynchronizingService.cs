@@ -59,6 +59,10 @@
             Repository.WriteOutput(EAGoatJira.JiraOutputWindowName, $"Done.", 0);
         }
 
+
+        private static string GetEAJiraIssueName(Atlassian.Jira.Issue Issue) => GetEAJiraIssueName (Issue.Key.Value, Issue.Summary);
+        private static string GetEAJiraIssueName(string Key, string Summary) => $"{Key} {Summary}";
+
         private enum IssueOperation { Inserted, Updated, Removed }
 
         /// <summary>
@@ -94,9 +98,9 @@
             { //this issue is not in EA so far, let's create a new one EA.Element
                 Operation = IssueOperation.Inserted;
                 if (Element == null)
-                    EAElementForIssue = Package.Elements.AddNew($"{Issue.Key} {Issue.Summary}", EAGoatJira.GetMetaclassFromIssueType(Issue));
+                    EAElementForIssue = Package.Elements.AddNew(GetEAJiraIssueName (Issue), EAGoatJira.GetMetaclassFromIssueType(Issue));
                 else
-                    EAElementForIssue = Element.Elements.AddNew($"{Issue.Key} {Issue.Summary}", EAGoatJira.GetMetaclassFromIssueType(Issue));
+                    EAElementForIssue = Element.Elements.AddNew(GetEAJiraIssueName(Issue), EAGoatJira.GetMetaclassFromIssueType(Issue));
                 Repository.WriteOutput(EAGoatJira.JiraOutputWindowName, $"Inserting issue {Issue.Key.Value}", EAElementForIssue.ElementID);
             }
             FillIssue(EAElementForIssue, new JiraIssueViewModel(new AtlassianJiraIssueModelService(Issue), null), Operation);
@@ -109,6 +113,7 @@
         private static void FillIssue(EA.Element EAIssue, JiraIssueViewModel jiraIssue, IssueOperation Operation)
         {
             EAIssue.Notes = jiraIssue.JiraIssue.Description;
+            EAIssue.Name = GetEAJiraIssueName (jiraIssue.JiraIssue.Key, jiraIssue.JiraIssue.Summary);
             EAIssue.Update();
 
             EAUtils.WriteTaggedValue(EAIssue, EAGoatJira.TagValueNameJiraKey, jiraIssue.JiraIssue.Key, WriteValueToNotes: false);

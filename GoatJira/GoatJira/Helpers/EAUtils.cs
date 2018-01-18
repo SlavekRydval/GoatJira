@@ -35,9 +35,15 @@
                 tv = Collection.AddNew(TaggedValueName, "TaggedValue");
 
             if (WriteValueToNotes)
-                tv.Notes = Value;
+            {
+                if (tv.Notes != Value)
+                    tv.Notes = Value;
+            }
             else
-                tv.Value = Value;
+            {
+                if (tv.Value != Value)
+                    tv.Value = Value;
+            }
             tv.Update();
         }
 
