@@ -13,9 +13,9 @@
         <MultiBinding StringFormat="JIRA Issue {0}: {1}">
             <Binding Path="JiraIssue.Key" />
             <Binding Path="JiraIssue.Summary" />
-        </MultiBinding>        
+        </MultiBinding>
     </Window.Title>
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <viewmodel:JiraIssueViewModel x:Key="JiraIssueData"/>
@@ -133,6 +133,15 @@
                          Converter={StaticResource DescriptionConverter}}" 
                          VerticalAlignment="Stretch" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" IsReadOnlyCaretVisible="True" IsReadOnly="True" BorderThickness="0" Margin="1"/>
             </TabItem>
+            <TabItem Header="Custom Fields">
+                <DataGrid ItemsSource="{Binding JiraIssue.CustomFields, Mode=OneWay}" AutoGenerateColumns="False" HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch" BorderThickness="0" CanUserReorderColumns="False" CanUserSortColumns="False" Padding="1" SelectionMode="Single" HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Custom Field" Binding="{Binding Key}" IsReadOnly="True" Width="150" />
+                        <DataGridTextColumn Header="Value" Binding="{Binding Value}" IsReadOnly="True" Width="325" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
         </TabControl>
 
         <!-- 2 columns elements / editable elements -->
@@ -147,7 +156,9 @@
 
 
 
-            --><!--<Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="Description:"/>--><!--
+            -->
+        <!--<Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="Description:"/>-->
+        <!--
             
         </Grid>-->
 

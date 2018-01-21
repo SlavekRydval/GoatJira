@@ -9,7 +9,7 @@ namespace GoatJira.Design
             Assignee = "Brouk Sáček",
             Components = "CRM, DWH",
             CreatedAt = DateTime.Now,
-            CustomFields = null,
+            CustomFields = new System.Collections.Generic.Dictionary<string, string>() { { "cust1", "value1" }, { "cust2", "value2" }, { "cust3", "value3" } },
             Description = "asldf jakdaskf riu8t ajdbv urh\najfdgb drrrrrrrrrrrrrrrrrrr\nkghbeiru fdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMvnbdksjhgb f",
             DueDate = DateTime.Now,
             Key = "key key key",
