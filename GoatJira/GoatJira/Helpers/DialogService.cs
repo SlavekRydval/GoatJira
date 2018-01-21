@@ -27,7 +27,7 @@
             if (DataContext.LoginInformation.SavePassword)
                 LoginInformationDlg.txtPassword.Password = DataContext.LoginInformation.Password;
             result = LoginInformationDlg.ShowDialog() == true ? true : false;
-            if (result && DataContext.LoginInformation.SavePassword)
+            if (result)
                 DataContext.LoginInformation.Password = LoginInformationDlg.txtPassword.Password;
             return result; 
         }

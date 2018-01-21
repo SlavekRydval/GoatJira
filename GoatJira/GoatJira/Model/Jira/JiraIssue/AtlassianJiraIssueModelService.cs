@@ -31,7 +31,7 @@
                 Status = issue.Status.Name,
                 Resolution = issue.Resolution?.Name,
                 ResolutionDate = issue.ResolutionDate,
-                DueDate = issue.DueDate
+                DueDate = issue.DueDate,
             };
 
             foreach (var cf in issue.CustomFields)
@@ -42,6 +42,9 @@
                     result.CustomFields.Add(cf.Name, cf.Values[0]);
             }
 
+            //not sure whether this should be here or in JiraIssueModel as derived attribute
+            try { result.DefinitionOfDone = result.CustomFields["Definition of Done"]; } catch { }
+            try { result.AcceptanceCriteria = result.CustomFields["Acceptance Criteria"]; } catch { } 
 
             return result;
         }

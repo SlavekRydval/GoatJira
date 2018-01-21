@@ -199,9 +199,11 @@
 
         private bool ExecuteSetLoginInformationCommand()
         {
-            bool result; 
+            bool result;
 
-            loginInformationViewModel.ReadData(EARepository);
+            if (!loginInformationViewModel.WasDataRead)
+                loginInformationViewModel.ReadData(EARepository);
+
             result = dialogService.ShowSetLoginInformationDialog(loginInformationViewModel);
             if (result)
                 loginInformationViewModel.SaveData(EARepository);
@@ -210,17 +212,28 @@
 
         private void ExecuteRefreshIssuesCommand(EA.Package Package)
         {
-            //Now it is just testing the functionality, must be improved!!!
             try
             {
-                loginInformationViewModel.ReadData(EARepository);
+                if (!loginInformationViewModel.WasDataRead)
+                    loginInformationViewModel.ReadData(EARepository);
+
+                if (!loginInformationViewModel.LoginInformation.SavePassword && (String.IsNullOrEmpty (loginInformationViewModel.LoginInformation.Password)))
+                {
+                    SetLoginInformationCommand.Execute(null);
+                    if (!SetLoginInformationCommand.Result)
+                        return; 
+                }
+
                 var jiraConnection = new JiraConnection();
                 jiraConnection.Login(loginInformationViewModel);
                 SynchronizingService.SynchronizePackageWithJIRA(eaRepository, Package, new PackageConnectionSettingsViewModel (new PackageConnectionSettingsModelService(Package), dialogService), jiraConnection);
             }
             catch (Exception e)
             {
-                dialogService.ShowError(Utils.ExceptionString(e));
+                if (e?.InnerException.Message.Contains("<title>Unauthorized (401)</title>") == true)
+                    dialogService.ShowError("Wrong username or password.");
+                else
+                    dialogService.ShowError(Utils.ExceptionString(e));
             }
         }
 

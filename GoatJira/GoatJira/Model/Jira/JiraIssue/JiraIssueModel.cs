@@ -26,6 +26,8 @@ namespace GoatJira.Model.Jira.JiraIssue
         private DateTime? resolutionDate;
         private DateTime? dueDate;
         private Dictionary<string, string> customFields = new Dictionary<string, string>();
+        private string definitionOfDone;
+        private string acceptanceCriteria;
 
         public string Key { get => key; set => Set(nameof(Key), ref key, value); }
         public string Type { get => type; set => Set(nameof(Type), ref type, value); }
@@ -45,6 +47,8 @@ namespace GoatJira.Model.Jira.JiraIssue
         public DateTime? ResolutionDate { get => resolutionDate; set => Set(nameof(ResolutionDate), ref resolutionDate, value); }
         public DateTime? DueDate { get => dueDate; set => Set(nameof(DueDate), ref dueDate, value); }
         public Dictionary<string, string> CustomFields { get => customFields; set => Set(nameof(CustomFields), ref customFields, value); }
+        public string DefinitionOfDone { get => definitionOfDone; set => Set(nameof(DefinitionOfDone), ref definitionOfDone, value); }
+        public string AcceptanceCriteria { get => acceptanceCriteria; set => Set(nameof(AcceptanceCriteria), ref acceptanceCriteria, value); }
         #endregion
 
         [JsonConstructor]

@@ -12,6 +12,12 @@
 
         public LoginInformationModel LoginInformation { get; private set; }
 
+        /// <summary>
+        /// Is set to true when data is read.
+        /// </summary>
+        public bool WasDataRead { get; set; } = false;
+
+
         public LoginInformationViewModel(): this (
             IsInDesignModeStatic ? (ILoginInformationModelService)new Design.DesignLoginInformationModelService() : new LoginInformationModelService(), 
             new DialogService())
@@ -28,8 +34,11 @@
             dialogService = DialogService;
         }
 
-        public void ReadData(EA.Repository Repository) =>
+        public void ReadData(EA.Repository Repository)
+        {
             LoginInformation = loginInformationModelService.Read(Repository.ProjectGUID);
+            WasDataRead = true; 
+        }
 
         public void SaveData(EA.Repository Repository) =>
             loginInformationModelService.Save(LoginInformation, Repository.ProjectGUID);
