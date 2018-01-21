@@ -32,7 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>GoatJira.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Atlassian.Jira, Version=10.0.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -151,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="GoatJira.pfx" />
     <None Include="GoatJira.reg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

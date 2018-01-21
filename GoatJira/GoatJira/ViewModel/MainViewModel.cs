@@ -230,7 +230,7 @@
             }
             catch (Exception e)
             {
-                if (e?.InnerException.Message.Contains("<title>Unauthorized (401)</title>") == true)
+                if (e.InnerException?.Message.Contains("<title>Unauthorized (401)</title>") == true)
                     dialogService.ShowError("Wrong username or password.");
                 else
                     dialogService.ShowError(Utils.ExceptionString(e));
