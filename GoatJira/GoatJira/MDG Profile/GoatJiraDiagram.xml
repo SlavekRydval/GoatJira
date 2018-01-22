@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<UMLProfile profiletype="uml2">
+	<Documentation id="4F337563-A" name="Goat Jira" version="1.0" notes="Goat Jira"/>
+	<Content>
+		<Stereotypes>
+			<Stereotype name="Jira Issues Diagram" notes="Diagram containing your Jira Issues" cx="0" cy="0" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Diagram_Logical">
+						<Property name="alias" value="jira"/>
+						<Property name="diagramID" value="jira"/>
+						<Property name="pdata" value="HideParents=0;"/>
+						<Property name="toolbox" value="Goat Jira"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+		</Stereotypes>
+		<TaggedValueTypes/>
+	</Content>
+</UMLProfile>

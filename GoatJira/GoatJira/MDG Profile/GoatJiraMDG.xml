@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="windows-1250"?>
-<MDG.Technology version="1.0"><Documentation id="Goat Jira" name="Goat Jira - Be Connected with Jira" version="1.0 Alfa 3" notes="Will be added later on." infoURI="http://www.rydval.cz" supportURI="slavek@rydval.cz"/><UMLProfiles><UMLProfile profiletype="uml2">
+<MDG.Technology version="1.0"><Documentation id="Goat Jira" name="Goat Jira - Be Connected with Jira" version="1.0 Alfa 4" notes="Will be added later on." infoURI="http://www.rydval.cz" supportURI="slavek@rydval.cz"/><UMLProfiles><UMLProfile profiletype="uml2">
 			<Documentation id="AAD8178D-1" name="Goat Jira" version="1.0" notes="Goat Jira"/>
 			<Content>
 				<Stereotypes>
@@ -198,4 +198,22 @@ AA==</Icon>
 			</Content>
 		</UMLProfile>
 	</UMLProfiles><TaggedValueTypes><RefData version="1.0" exporter="EA.25">
-			<DataSet name="Property Types" table="t_propertytypes" filter="Property='#Property#'"><DataRow><Column name="Property" value="Data"/><Column name="Notes" value="Type=Memo;"/></DataRow></DataSet></RefData></TaggedValueTypes></MDG.Technology>
+			<DataSet name="Property Types" table="t_propertytypes" filter="Property='#Property#'"><DataRow><Column name="Property" value="Data"/><Column name="Notes" value="Type=Memo;"/></DataRow></DataSet></RefData></TaggedValueTypes><DiagramProfile><UMLProfile profiletype="uml2">
+			<Documentation id="4F337563-A" name="Goat Jira" version="1.0" notes="Goat Jira"/>
+			<Content>
+				<Stereotypes>
+					<Stereotype name="Jira Issues Diagram" notes="Diagram containing your Jira Issues" cx="0" cy="0" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+						<AppliesTo>
+							<Apply type="Diagram_Logical">
+								<Property name="alias" value="jira"/>
+								<Property name="diagramID" value="jira"/>
+								<Property name="pdata" value="HideParents=0;"/>
+								<Property name="toolbox" value="Goat Jira"/>
+							</Apply>
+						</AppliesTo>
+					</Stereotype>
+				</Stereotypes>
+				<TaggedValueTypes/>
+			</Content>
+		</UMLProfile>
+	</DiagramProfile></MDG.Technology>

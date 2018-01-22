@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="MDG Profile\GoatJiraDiagram.xml" />
     <Content Include="MDG Profile\GoatJiraMDG.mts" />
     <Content Include="MDG Profile\Icons\Bug.bmp" />
     <Content Include="MDG Profile\Icons\Bug.ico" />
