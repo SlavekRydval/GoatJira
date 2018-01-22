@@ -138,7 +138,7 @@
                   VerticalAlignment="Stretch" BorderThickness="0" CanUserReorderColumns="False" CanUserSortColumns="False" Padding="1" SelectionMode="Single" HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Custom Field" Binding="{Binding Key}" IsReadOnly="True" Width="150" />
-                        <DataGridTextColumn Header="Value" Binding="{Binding Value}" IsReadOnly="True" Width="325" />
+                        <DataGridTextColumn Header="Value" Binding="{Binding Value}" IsReadOnly="True" Width="320" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
