@@ -10,5 +10,8 @@
 * Goat image used in about dialog is copyrighted by [Leona Štastná](http://www.leona-stastna.cz) and you cannot use it without her permission.
 * Rest of files are under MIT licence.
 
+## Screenshots:
+![Goat Issue](http://rydval.cz/res/GitHub/GoatJira/JiraIssue.png)
+
 ## Download binaries:
 * [binaries](http://rydval.cz/tmp/GoatJira.zip) - download the file, unzip it and as an administrator run install.bat
