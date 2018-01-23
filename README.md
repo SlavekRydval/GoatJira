@@ -1,5 +1,5 @@
 # GoatJira
-**GoatJira** is a Sparx Enterprise Architect Addin for synchronizing JIRA issues with the EA repository. Currently is being developed.
+**GoatJira** is a Sparx Enterprise Architect Addin for synchronizing JIRA issues with the EA repository. Currently is being developed, first version is almost finished.
 
 ## Requirements:
 * Sparx Enterprise Architect
@@ -46,5 +46,5 @@ The Jira diagram has its own tool box set:
 ![Tool Box](http://rydval.cz/res/GitHub/GoatJira/Toolbox.png)
 
 
-## Download binaries:
+## Download binaries and installation:
 * [binaries](http://rydval.cz/tmp/GoatJira.zip) - download the file, unzip it and as an administrator run install.bat
