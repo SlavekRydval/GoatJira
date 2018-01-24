@@ -7,7 +7,7 @@
     class LoginInformationModelService : ILoginInformationModelService
     {
         private static string GetConfigFile(string StorageID) => 
-            $@"{Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)).FullName}\EAGoatJiraConnection_{StorageID}.json";
+            $@"{Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)).FullName}\EAGoatJiraConnection_{StorageID}.json";
 
         public LoginInformationModel Read(string StorageID)
         {

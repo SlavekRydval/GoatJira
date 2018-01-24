@@ -199,7 +199,7 @@ namespace GoatJira
                     break;
 
                 default:
-                    MessageBox.Show($"Unhandled menu item '{ItemName}'!");
+                    (new DialogService()).ShowError($"Unhandled menu item '{ItemName}'!");
                     break;
             }
         }
@@ -220,7 +220,7 @@ namespace GoatJira
             if ((ObjectType == EA.ObjectType.otElement) && EAGoatJira.IsElementJiraMetatype (Repository.GetElementByGuid(GUID)))
             {
                 mainViewModel.ShowIssueCommand.Execute(Repository.GetElementByGuid(GUID));
-                return true; 
+                return mainViewModel.ShowIssueCommand.Result; 
             }
 
             if ((ObjectType == EA.ObjectType.otPackage) && (Repository.GetPackageByGuid(GUID).Element.Stereotype == EAGoatJira.PackageStereotypeName))

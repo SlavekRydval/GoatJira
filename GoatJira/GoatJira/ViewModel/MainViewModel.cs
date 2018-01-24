@@ -129,13 +129,13 @@
             }
         }
 
-        private RelayCommand<EA.Element> showIssueCommand;
-        public RelayCommand<EA.Element> ShowIssueCommand
+        private RelayCommandWithResult<EA.Element, bool> showIssueCommand;
+        public RelayCommandWithResult<EA.Element, bool> ShowIssueCommand
         {
             get
             {
                 if (showIssueCommand == null)
-                    showIssueCommand = new RelayCommand<EA.Element>((element) => ExecuteShowIssueCommand(element));
+                    showIssueCommand = new RelayCommandWithResult<EA.Element, bool>((element) => ExecuteShowIssueCommand(element));
                 return showIssueCommand;
             }
         }
@@ -199,15 +199,23 @@
 
         private bool ExecuteSetLoginInformationCommand()
         {
-            bool result;
+            try
+            {
+                bool result;
 
-            if (!loginInformationViewModel.WasDataRead)
-                loginInformationViewModel.ReadData(EARepository);
+                if (!loginInformationViewModel.WasDataRead)
+                    loginInformationViewModel.ReadData(EARepository);
 
-            result = dialogService.ShowSetLoginInformationDialog(loginInformationViewModel);
-            if (result)
-                loginInformationViewModel.SaveData(EARepository);
-            return result;
+                result = dialogService.ShowSetLoginInformationDialog(loginInformationViewModel);
+                if (result)
+                    loginInformationViewModel.SaveData(EARepository);
+                return result;
+            }
+            catch (Exception e)
+            {
+                dialogService.ShowError(Utils.ExceptionString(e));
+                return false; 
+            }
         }
 
         private void ExecuteRefreshIssuesCommand(EA.Package Package)
@@ -232,6 +240,8 @@
             {
                 if (e.InnerException?.Message.Contains("<title>Unauthorized (401)</title>") == true)
                     dialogService.ShowError("Wrong username or password.");
+                if (e.InnerException?.Message.Contains("<h1>Page unavailable</h1>") == true)
+                    dialogService.ShowError("Enter correct URL for your JIRA server.");
                 else
                     dialogService.ShowError(Utils.ExceptionString(e));
             }
@@ -243,6 +253,7 @@
 
         private void ExecuteShowIssueCommand(EA.Element Element)
         {
+            ShowIssueCommand.Result = false;
             try
             {
                 string JsonIssue = ((EA.TaggedValue)Element.TaggedValues.GetByName(EAGoatJira.TagValueNameData)).Notes;
@@ -252,20 +263,21 @@
                     try
                     {
                         JiraIssue.ShowIssue();
+                        ShowIssueCommand.Result = true;
                     }
                     catch (Exception e)
                     {
-                        dialogService.ShowError($"Cannot show Jira Issue Dialog.\n{Utils.ExceptionString(e)}");
+                        dialogService.ShowError($"Cannot show Jira Issue Dialog, default Properties dialog will be shown.\n{Utils.ExceptionString(e)}");
                     }
                 }
                 catch (Exception e)
                 {
-                    dialogService.ShowError($"Cannot read issue data. Probably broken data in tagged value {EAGoatJira.TagValueNameData}\n{Utils.ExceptionString(e)}");
+                    dialogService.ShowError($"Cannot read issue data, default Properties dialog will be shown. There is probably broken data in tagged value {EAGoatJira.TagValueNameData}\n{Utils.ExceptionString(e)}");
                 }
             }
             catch (Exception e)
             {
-                dialogService.ShowError($"Cannot read the tagged value {EAGoatJira.TagValueNameData}\n{Utils.ExceptionString(e)}");
+                dialogService.ShowError($"Cannot read the tagged value {EAGoatJira.TagValueNameData}, default Properties dialog will be shown.\n{Utils.ExceptionString(e)}");
             }
         }
     }

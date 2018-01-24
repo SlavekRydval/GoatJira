@@ -30,7 +30,7 @@
         public const string JiraTechnicalStoryTypeName = "technical us";
 
         //
-        public const string JiraOutputWindowName = "Jura";
+        public const string JiraOutputWindowName = "Goat Jira";
 
         //taggs for GoatJira stereotyp assignable to Package
         public const string PackageStereotypeName = "GoatJira";

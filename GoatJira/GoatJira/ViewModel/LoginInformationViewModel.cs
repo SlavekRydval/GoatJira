@@ -1,6 +1,5 @@
 ﻿namespace GoatJira.ViewModel
 {
-    using System;
     using GalaSoft.MvvmLight;
     using GoatJira.Helpers;
     using GoatJira.Model.LoginInformation;
